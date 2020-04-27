@@ -10,4 +10,6 @@
 (unless (package-installed-p 'flycheck) (package-install 'flycheck))
 (unless (package-installed-p 'doom-modeline) (package-install 'doom-modeline))
 (unless (package-installed-p 'doom-themes) (package-install 'doom-themes))
+(unless (package-installed-p 'helm) (package-install 'helm))
+
 ;;; install.el ends here
