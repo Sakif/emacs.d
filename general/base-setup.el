@@ -1,40 +1,26 @@
 
 ;;; Code:
+(require 'package)
+(add-to-list 'package-archives '("MELPA" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+(when (not package-archive-contents) (package-refresh-contents))
+
+(unless (package-installed-p 'use-package) (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(unless (package-installed-p 'company) (package-install 'company))
 (require 'company)
 (use-package company
   :config (global-company-mode)
   (setq company-idle-delay 0)
   :bind ("M-/" . company-complete-common-or-cycle))
 
+(unless (package-installed-p 'flycheck) (package-install 'flycheck))
 (require 'flycheck)
 (use-package flycheck :config (global-flycheck-mode))
 
-(require 'doom-themes)
-(use-package doom-themes
-  :config
-  (doom-themes-visual-bell-config)
-  (load-theme 'doom-one t))
-
-(require 'doom-modeline)
-(use-package doom-modeline
-  :config
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-buffer-state-icon t)
-  (setq doom-modeline-buffer-file-name-style 'file-name)
-  (setq doom-modeline-buffer-modification-icon t)
-  (setq doom-modeline-minor-modes (featurep 'minions))
-  (setq doom-modeline-display-default-persp-name t)
-  (setq doom-modeline-enable-word-count t)
-  (setq doom-modeline-github t)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-indent-info t)
-  ; (setq doom-modeline-minor-modes t)
-  (setq doom-modeline-unicode-fallback t)
-  :hook (after-init . doom-modeline-mode))
-
+(unless (package-installed-p 'helm) (package-install 'helm))
 (require 'helm)
 (use-package helm
   :init
@@ -55,4 +41,15 @@
    ("C-x b" . helm-mini)
    ("M-y" . helm-show-kill-ring)
    ("C-x C-f" . helm-find-files)))
+
+(unless (package-installed-p 'projectile) (package-install 'projectile))
+(require 'projectile)
+(use-package projectile :init (projectile-mode +1))
+
+(menu-bar-mode -1)
+(setq-default tab-width 4)
+(global-visual-line-mode)
+(show-paren-mode)
+(column-number-mode)
+
 ;;; base-setup.el ends here
