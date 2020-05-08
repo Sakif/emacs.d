@@ -8,7 +8,9 @@
  '(cua-mode t nil (cua-base))
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
- '(package-selected-packages (quote (helm-gtags doom-themes doom-modeline)))
+ '(package-selected-packages
+   (quote
+	(flycheck-irony irony helm-gtags doom-themes doom-modeline)))
  '(spaceline-helm-mode t)
  '(spaceline-show-default-input-method t))
 
@@ -22,5 +24,8 @@
 (load "~/.emacs.d/general/base-setup.el")
 (load "~/.emacs.d/general/theme.el")
 (load "~/.emacs.d/general/mode-line.el")
-;(load "~/.emacs.d/ccpp.el")
+(defun my-c-cpp-hook ()
+  "Loads the c cpp setup file."
+  (load "~/.emacs.d/c_cpp/setup.el"))
+(add-hook 'c-mode-hook 'my-c-cpp-hook)
 ;;; init.el ends here
