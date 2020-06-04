@@ -28,4 +28,5 @@
   "Loads the c cpp setup file."
   (load "~/.emacs.d/c_cpp/setup.el"))
 (add-hook 'c-mode-hook 'my-c-cpp-hook)
+(add-hook 'cpp-mode-hook 'my-c-cpp-hook)
 ;;; init.el ends here

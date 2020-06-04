@@ -12,9 +12,9 @@
   (setq doom-modeline-display-default-persp-name t)
   (setq doom-modeline-enable-word-count t)
   (setq doom-modeline-github t)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-indent-info t)
-  ; (setq doom-modeline-minor-modes t)
-  (setq doom-modeline-unicode-fallback t)
+;  (setq doom-modeline-icon t)
+;  (setq doom-modeline-indent-info t)
+;  (setq doom-modeline-minor-modes t)
+;  (setq doom-modeline-unicode-fallback t)
   :hook (after-init . doom-modeline-mode))
 ;;; mode-line.el ends here
