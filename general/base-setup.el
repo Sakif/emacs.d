@@ -9,6 +9,9 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(unless (package-installed-p 'magit) (package-install 'magit))
+(require 'magit)
+
 (unless (package-installed-p 'company) (package-install 'company))
 (require 'company)
 (use-package company
@@ -47,7 +50,6 @@
 (use-package projectile :init (projectile-mode +1))
 
 (menu-bar-mode -1)
-(setq-default tab-width 4)
 (global-visual-line-mode)
 (show-paren-mode)
 (column-number-mode)

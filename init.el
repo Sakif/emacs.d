@@ -10,7 +10,7 @@
  '(make-backup-files nil)
  '(package-selected-packages
    (quote
-	(flycheck-irony irony helm-gtags doom-themes doom-modeline)))
+    (flycheck-irony irony helm-gtags doom-themes doom-modeline)))
  '(spaceline-helm-mode t)
  '(spaceline-show-default-input-method t))
 
