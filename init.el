@@ -24,9 +24,6 @@
 (load "~/.emacs.d/general/base-setup.el")
 (load "~/.emacs.d/general/theme.el")
 (load "~/.emacs.d/general/mode-line.el")
-(defun my-c-cpp-hook ()
-  "Loads the c cpp setup file."
-  (load "~/.emacs.d/c_cpp/setup.el"))
-(add-hook 'c-mode-hook 'my-c-cpp-hook)
-(add-hook 'cpp-mode-hook 'my-c-cpp-hook)
+(load "~/.emacs.d/c_cpp/setup.el")
+
 ;;; init.el ends here
