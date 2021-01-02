@@ -35,20 +35,20 @@
 	:custom
 	(use-package-always-ensure t))
 
-
-;; colourful paranthesis
 (use-package rainbow-delimiters
+	;; colourful paranthesis
 	:hook
 	(prog-mode . rainbow-delimiters-mode))
 
 (use-package smartparens
+	;; close open paranthesis
 	:config
 	(smartparens-global-mode 1)
 	(require 'smartparens-config)
 	(show-paren-mode t))
 
-;; helm
 (use-package helm-projectile
+	;; helm and projectile
 	:init
 	(global-unset-key (kbd "C-x c"))
 	;; set prijectile home directory
@@ -70,16 +70,16 @@
 	 ("M-y" . helm-show-kill-ring)
 	 ("C-x C-f" . helm-find-files)))
 
-;; for spelling
+;; spelling
 (use-package helm-ispell)
 
-;; formating
 (use-package format-all
+	;; formating document before saving
 	:hook
 	(before-save . format-all-buffer))
 
-;; company
 (use-package company
+	;; code compleation framework
 	:config
 	(global-company-mode)
 	:custom
@@ -88,13 +88,18 @@
 	:bind
 	("M-/" . company-complete-common-or-cycle))
 
-;; flycheck
+(use-package yasnippet
+	;; code snippet extension
+	:config
+	(yas-global-mode 1))
+
 (use-package flycheck
+	;; on-the-fly syntax checking
 	:config
 	(global-flycheck-mode))
 
-;; better mode line
 (use-package doom-modeline
+	;; better mode line
 	:custom
 	(doom-modeline-buffer-file-name-style 'file-name)
 	(doom-modeline-minor-modes (featurep 'minions))
@@ -105,26 +110,33 @@
 	:hook
 	(after-init . doom-modeline-mode))
 
-;; better theme
 (use-package doom-themes
+	;; better theme
 	:config
 	(doom-themes-visual-bell-config)
 	(load-theme 'doom-one t))
 
-;; tells which function is binded to which keyboard shortcut
 (use-package which-key
+	;; tells which function is binded to which keyboard shortcut
 	:init
 	(which-key-mode)
 	:custom
 	(which-key-idle-delay 1))
 
-;; for finding all in buffer and replacing them
 (use-package iedit
+	;; for finding all in buffer and replacing them
 	:bind
 	("C-c f" . iedit-mode))
 
-;;; c c++ and python
 (use-package eglot
+	;; language server
+	;;; Commentary:
+	;; "C-h ." display-local-help
+	;; renaming symbol at point with eglot: eglot-rename
+	;; find defination default: "M-." xref-find-definitions
+	;; eglot-find-declaration
+	;; eglot-find-implementation
+	;; eglot-find-typeDefinition
 	:hook
 	(c-mode . eglot-ensure)
 	(c++-mode . eglot-ensure)
@@ -133,13 +145,22 @@
 	;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
 	(setq eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
 
+(use-package markdown-mode
+	:init
+	(setq markdown-command "multimarkdown")
+	:mode
+	(("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-	 '(eglot iedit which-key rainbow-delimiters doom-themes doom-modeline flycheck company helm-ispell helm-projectile smartparens use-package)))
+	 (quote
+		(eglot iedit which-key rainbow-delimiters doom-themes doom-modeline flycheck company helm-ispell helm-projectile smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
