@@ -3,13 +3,13 @@
 ;; To cut the text, press C-w.
 ;; To copy the text, press M-w.
 ;; To paste the text, press C-y.
-;;; my Emacs config file
+;;; my Emacs configure file
 ;;; Code:
 (setq user-full-name "Sakif Fahmid Zaman" ; who am I?
 			user-mail-address "smfzaman@gmail.com")
 (setq inhibit-startup-message t) ; no start up message
 (menu-bar-mode -1) ; no menubar
-(global-visual-line-mode) ; wraping
+(global-visual-line-mode) ; warping
 (column-number-mode) ; shoes the column number
 ;; (global-hl-line-mode +1) ; highlights line number
 ;; (line-number-mode +1) ; line numbers
@@ -17,9 +17,9 @@
 ;; (size-indication-mode t) ; indicates the current tab size
 ;; to stop writing out the full yes and no
 (fset 'yes-or-no-p 'y-or-n-p)
-(global-auto-revert-mode t) ; automatically reloads buffer if changes made outside of emacs
+(global-auto-revert-mode t) ; automatically reloads buffer if changes made outside of Emacs
 (setq-default tab-width 2) ; set tab size
-;; clean up whitespace before save
+;; clean up white space before save
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
 ;; initialize package
@@ -34,6 +34,12 @@
 (use-package use-package
 	:custom
 	(use-package-always-ensure t))
+
+
+;; colourful paranthesis
+(use-package rainbow-delimiters
+	:hook
+	(prog-mode . rainbow-delimiters-mode))
 
 (use-package smartparens
 	:config
@@ -65,9 +71,7 @@
 	 ("C-x C-f" . helm-find-files)))
 
 ;; for spelling
-(use-package helm-ispell
-	:hook
-	(before-save . ispell-buffer))
+(use-package helm-ispell)
 
 ;; formating
 (use-package format-all
@@ -107,11 +111,6 @@
 	(doom-themes-visual-bell-config)
 	(load-theme 'doom-one t))
 
-;; colourful delim
-(use-package rainbow-delimiters
-	:hook
-	(prog-mode . rainbow-delimiters-mode))
-
 ;; tells which function is binded to which keyboard shortcut
 (use-package which-key
 	:init
@@ -131,21 +130,20 @@
 	(c++-mode . eglot-ensure)
 	(python-mode . eglot-ensure)
 	:config
-	(add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+	;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
 	(setq eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
 
-;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-	 (quote
-		(eglot iedit which-key rainbow-delimiters doom-themes doom-modeline flycheck company helm-ispell helm-projectile smartparens use-package))))
+	 '(eglot iedit which-key rainbow-delimiters doom-themes doom-modeline flycheck company helm-ispell helm-projectile smartparens use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;;; init.el ends here
