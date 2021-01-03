@@ -5,9 +5,15 @@
 ;; To paste the text, press C-y.
 ;;; my Emacs configure file
 ;;; Code:
-(setq user-full-name "Sakif Fahmid Zaman" ; who am I?
-			user-mail-address "smfzaman@gmail.com")
-(setq inhibit-startup-message t) ; no start up message
+(setq inhibit-startup-message t ; no start up message
+			user-full-name "Sakif Fahmid Zaman" ; who am I?
+			user-mail-address "smfzaman@gmail.com"
+			;; backups
+			backup-by-copying t
+			delete-old-versions t
+			kept-new-versions 1
+			kept-old-versions 1)
+
 (menu-bar-mode -1) ; no menubar
 (global-visual-line-mode) ; warping
 (column-number-mode) ; shoes the column number
@@ -21,6 +27,7 @@
 (setq-default tab-width 2) ; set tab size
 ;; clean up white space before save
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
 
 ;; initialize package
 (require 'package)
