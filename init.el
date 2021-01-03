@@ -76,6 +76,13 @@
 
 ;; git management
 (use-package magit)
+;;; magit usage:
+;; "C-x g" for magit status
+;; "P" to push
+;; "C" to begin commit
+;; "s" to stage
+;; "u" to unstage
+;; "C-c C-c" to commit
 
 (use-package format-all
 	;; formating document before saving
@@ -159,17 +166,3 @@
 	 ("\\.markdown\\'" . markdown-mode)))
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-	 (quote
-		(magit yasnippet which-key use-package smartparens rainbow-delimiters projectile-ripgrep markdown-mode iedit helm-rg helm-projectile helm-ispell format-all flycheck eglot doom-themes doom-modeline company))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
