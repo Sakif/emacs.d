@@ -79,7 +79,7 @@
 ;;; magit usage:
 ;; "C-x g" for magit status
 ;; "P" to push
-;; "C" to begin commit
+;; "c" to begin commit
 ;; "s" to stage
 ;; "u" to unstage
 ;; "C-c C-c" to commit
