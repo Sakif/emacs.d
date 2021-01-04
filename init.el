@@ -7,12 +7,7 @@
 ;;; Code:
 (setq inhibit-startup-message t ; no start up message
 			user-full-name "Sakif Fahmid Zaman" ; who am I?
-			user-mail-address "smfzaman@gmail.com"
-			;; backups
-			backup-by-copying t
-			delete-old-versions t
-			kept-new-versions 1
-			kept-old-versions 1)
+			user-mail-address "smfzaman@gmail.com")
 
 (menu-bar-mode -1) ; no menubar
 (global-visual-line-mode) ; warping
@@ -173,3 +168,15 @@
 	 ("\\.markdown\\'" . markdown-mode)))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(make-backup-files nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
