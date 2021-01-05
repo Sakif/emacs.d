@@ -3,28 +3,8 @@
 ;; To cut the text, press C-w.
 ;; To copy the text, press M-w.
 ;; To paste the text, press C-y.
-;;; my Emacs configure file
+
 ;;; Code:
-(setq inhibit-startup-message t ; no start up message
-			user-full-name "Sakif Fahmid Zaman" ; who am I?
-			user-mail-address "smfzaman@gmail.com")
-
-(menu-bar-mode -1) ; no menubar
-(global-visual-line-mode) ; warping
-(column-number-mode) ; shoes the column number
-;; (global-hl-line-mode +1) ; highlights line number
-;; (line-number-mode +1) ; line numbers
-;; (global-display-line-numbers-mode 1) ; more line numbers
-;; (size-indication-mode t) ; indicates the current tab size
-;; to stop writing out the full yes and no
-(fset 'yes-or-no-p 'y-or-n-p)
-(global-auto-revert-mode t) ; automatically reloads buffer if changes made outside of Emacs
-(setq-default tab-width 2) ; set tab size
-;; clean up white space before save
-(add-hook 'before-save-hook 'whitespace-cleanup)
-
-
-;; initialize package
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
@@ -34,8 +14,30 @@
 (unless (package-installed-p 'use-package) (package-install 'use-package))
 (require 'use-package)
 (use-package use-package
+	:init
+	(menu-bar-mode -1) ; no menubar
+	(global-visual-line-mode) ; warping
+	(column-number-mode) ; shoes the column number
+	(add-hook 'before-save-hook 'whitespace-cleanup) ; clean up white space before save
+	(global-auto-revert-mode t) ; automatically reloads buffer if changes made outside of Emacs
+	(setq-default tab-width 2) ; set tab size
+	(fset 'yes-or-no-p 'y-or-n-p)
+	(setq inhibit-startup-message t ; no start up message
+				user-full-name "Sakif Fahmid Zaman" ; who am I?
+				user-mail-address "smfzaman@gmail.com")
 	:custom
 	(use-package-always-ensure t))
+
+(use-package doom-modeline
+	;; better mode line
+	:custom
+	(doom-modeline-buffer-file-name-style 'file-name)
+	(doom-modeline-minor-modes (featurep 'minions))
+	(doom-modeline-display-default-persp-name t)
+	(doom-modeline-github t)
+	(doom-modeline-indent-info t)
+	:hook
+	(after-init . doom-modeline-mode))
 
 (use-package rainbow-delimiters
 	;; colourful paranthesis
@@ -61,7 +63,6 @@
 	(projectile-mode +1)
 	(helm-mode 1)
 	(helm-projectile-on)
-	(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 	(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
 	(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 	:bind-keymap
@@ -111,23 +112,7 @@
 	:config
 	(global-flycheck-mode))
 
-(use-package doom-modeline
-	;; better mode line
-	:custom
-	(doom-modeline-buffer-file-name-style 'file-name)
-	(doom-modeline-minor-modes (featurep 'minions))
-	(doom-modeline-display-default-persp-name t)
-	(doom-modeline-enable-word-count t)
-	(doom-modeline-github t)
-	(doom-modeline-indent-info t)
-	:hook
-	(after-init . doom-modeline-mode))
 
-(use-package doom-themes
-	;; better theme
-	:config
-	(doom-themes-visual-bell-config)
-	(load-theme 'doom-one t))
 
 (use-package which-key
 	;; tells which function is binded to which keyboard shortcut
@@ -143,7 +128,6 @@
 
 (use-package eglot
 	;; language server
-
 	;;; Commentary:
 	;; "C-h ." display-local-help
 	;; renaming symbol at point with eglot: eglot-rename
