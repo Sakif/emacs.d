@@ -3,7 +3,6 @@
 ;; To cut the text, press C-w.
 ;; To copy the text, press M-w.
 ;; To paste the text, press C-y.
-
 ;;; Code:
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
@@ -39,6 +38,10 @@
 	:hook
 	(after-init . doom-modeline-mode))
 
+(use-package zerodark-theme
+	:config
+	(zerodark-setup-modeline-format))
+
 (use-package rainbow-delimiters
 	;; colourful paranthesis
 	:hook
@@ -66,12 +69,12 @@
 	(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
 	(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 	:bind-keymap
-	("C-c p" . projectile-command-map)
+	("C-x p" . projectile-command-map)
 	:bind
-	(("M-x" . helm-M-x)
-	 ("C-x b" . helm-mini)
-	 ("M-y" . helm-show-kill-ring)
-	 ("C-x C-f" . helm-find-files)))
+	("M-x" . helm-M-x)
+	("C-x b" . helm-mini)
+	("M-y" . helm-show-kill-ring)
+	("C-x C-f" . helm-find-files))
 
 ;; ripgrep search
 (use-package helm-rg)
@@ -100,7 +103,7 @@
 	(company-idle-delay 0)
 	(company-minimum-prefix-length 1)
 	:bind
-	("M-/" . company-complete-common-or-cycle))
+	("M-<tab>" . company-complete-common-or-cycle))
 
 (use-package yasnippet
 	;; code snippet extension
@@ -111,8 +114,6 @@
 	;; on-the-fly syntax checking
 	:config
 	(global-flycheck-mode))
-
-
 
 (use-package which-key
 	;; tells which function is binded to which keyboard shortcut
@@ -157,7 +158,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(make-backup-files nil))
+ '(make-backup-files nil)
+ '(package-selected-packages
+	 (quote
+		(zerodark-theme yasnippet which-key use-package smartparens rainbow-delimiters projectile-ripgrep markdown-mode magit iedit helm-rg helm-projectile helm-ispell format-all flycheck eglot doom-themes doom-modeline company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
