@@ -71,24 +71,14 @@
 	:bind-keymap
 	("C-x p" . projectile-command-map)
 	:bind
-	("M-x" . helm-M-x)
-	("C-x b" . helm-mini)
-	("M-y" . helm-show-kill-ring)
-	("C-x C-f" . helm-find-files))
+	(("M-x" . helm-M-x)
+	 ("C-x b" . helm-mini)
+	 ("M-y" . helm-show-kill-ring)
+	 ("C-x C-f" . helm-find-files)))
 
 ;; ripgrep search
 (use-package helm-rg)
 (use-package projectile-ripgrep)
-
-;; git management
-(use-package magit)
-;;; magit usage:
-;; "C-x g" for magit status
-;; "P" to push
-;; "c" to begin commit
-;; "s" to stage
-;; "u" to unstage
-;; "C-c C-c" to commit
 
 (use-package format-all
 	;; formating document before saving
@@ -100,8 +90,8 @@
 	:config
 	(global-company-mode)
 	:custom
-	(company-idle-delay 0)
-	(company-minimum-prefix-length 1)
+	((company-idle-delay 0)
+	 (company-minimum-prefix-length 1))
 	:bind
 	("M-<tab>" . company-complete-common-or-cycle))
 
@@ -137,9 +127,9 @@
 	;; eglot-find-implementation
 	;; eglot-find-typeDefinition
 	:hook
-	(c-mode . eglot-ensure)
-	(c++-mode . eglot-ensure)
-	(python-mode . eglot-ensure)
+	((c-mode . eglot-ensure)
+	 (c++-mode . eglot-ensure)
+	 (python-mode . eglot-ensure))
 	:config
 	;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
 	(setq eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
