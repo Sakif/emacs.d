@@ -27,20 +27,22 @@
 	:custom
 	(use-package-always-ensure t))
 
+(use-package doom-themes
+	:config
+	(load-theme 'doom-one t))
+
 (use-package doom-modeline
 	;; better mode line
 	:custom
 	(doom-modeline-buffer-file-name-style 'file-name)
 	(doom-modeline-minor-modes (featurep 'minions))
 	(doom-modeline-display-default-persp-name t)
+	(doom-modeline-unicode-fallback nil)
 	(doom-modeline-github t)
+	(doom-modeline-project-detection 'project)
+	(doom-modeline-icon (display-graphic-p))
 	(doom-modeline-indent-info t)
-	:hook
-	(after-init . doom-modeline-mode))
-
-(use-package zerodark-theme
-	:config
-	(zerodark-setup-modeline-format))
+	:init (doom-modeline-mode 1))
 
 (use-package rainbow-delimiters
 	;; colourful paranthesis
@@ -93,7 +95,7 @@
 	((company-idle-delay 0)
 	 (company-minimum-prefix-length 1))
 	:bind
-	("M-<tab>" . company-complete-common-or-cycle))
+	("M-/" . company-complete-common-or-cycle))
 
 (use-package yasnippet
 	;; code snippet extension
@@ -141,20 +143,4 @@
 	(("README\\.md\\'" . gfm-mode)
 	 ("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode)))
-
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(make-backup-files nil)
- '(package-selected-packages
-	 (quote
-		(zerodark-theme yasnippet which-key use-package smartparens rainbow-delimiters projectile-ripgrep markdown-mode magit iedit helm-rg helm-projectile helm-ispell format-all flycheck eglot doom-themes doom-modeline company))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
