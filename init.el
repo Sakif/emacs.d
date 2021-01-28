@@ -119,6 +119,16 @@
 	:bind
 	("C-c f" . iedit-mode))
 
+(use-package markdown-mode
+	:init
+	(setq markdown-command "multimarkdown")
+	:mode
+	(("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode)))
+
+(use-package rust-mode)
+
 (use-package eglot
 	;; language server
 	;;; Commentary:
@@ -130,17 +140,26 @@
 	;; eglot-find-typeDefinition
 	:hook
 	((c-mode . eglot-ensure)
+	 (rust-mode . eglot-ensure)
 	 (c++-mode . eglot-ensure)
 	 (python-mode . eglot-ensure))
 	:config
 	;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
 	(setq eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
 
-(use-package markdown-mode
-	:init
-	(setq markdown-command "multimarkdown")
-	:mode
-	(("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode)))
+
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+	 (quote
+		(rust-mode zerodark-theme yasnippet which-key use-package smartparens rainbow-delimiters projectile-ripgrep markdown-mode iedit helm-rg helm-projectile format-all flycheck eglot doom-themes doom-modeline company))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
