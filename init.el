@@ -24,6 +24,7 @@
 	user-full-name "Sakif Fahmid Zaman" ; who am I?
 	user-mail-address "smfzaman@gmail.com")
   :custom
+  (make-backup-files nil)
   (use-package-always-ensure t))
 
 (use-package doom-themes
