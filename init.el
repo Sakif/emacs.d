@@ -25,6 +25,7 @@
 	user-mail-address "smfzaman@gmail.com")
   :custom
   (make-backup-files nil)
+
   (use-package-always-ensure t))
 
 (use-package doom-themes
@@ -97,6 +98,13 @@
   :bind
   ("M-/" . company-complete-common-or-cycle))
 
+(use-package auto-package-update
+  ;; automatically update package once a week
+  :init
+  (auto-package-update-maybe)
+  :custom
+  (auto-package-update-delete-old-versions t))
+
 (use-package yasnippet
   ;; code snippet extension
   :config
@@ -136,7 +144,8 @@
    (c++-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  (setq eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
+  :custom
+  (eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
 
 (use-package rust-mode
   :hook
