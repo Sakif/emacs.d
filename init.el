@@ -1,5 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
 
 ;; get use-package
 (unless (package-installed-p 'use-package) (package-install 'use-package))
@@ -8,24 +9,24 @@
   :init
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
-  (scroll-bar-mode -1) ; no scroll bar
+  ;; (scroll-bar-mode -1) ; no scroll bar
   (column-number-mode) ; shoes the column number
   (global-visual-line-mode) ; warping
   (global-auto-revert-mode t) ; automatically reloads buffer if changes made outside of Emacs
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
-  (set-default-coding-systems 'utf-8)
+  (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (set-face-attribute
    'default nil
    :font "JetBrains Mono"
    :height 160)
-  (setq inhibit-startup-message t ; no start up message
-	user-full-name "Sakif Fahmid Zaman" ; who am I?
-	user-mail-address "smfzaman@gmail.com")
-  (custom-set-variables
+  (setq inhibit-startup-message t) ; no start up message
+  (custom-set-variables ; emacs opens maximized
    '(initial-frame-alist (quote ((fullscreen . maximized)))))
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
+  (user-mail-address "smfzaman@gmail.com") ; my email
+  (user-full-name "Sakif Fahmid Zaman") ; Who am I?
   (make-backup-files nil) ; no backup files
   (use-package-always-ensure t))
 
@@ -62,8 +63,7 @@
   ;; helm and projectile
   :init
   (global-unset-key (kbd "C-x c"))
-  ;; set prijectile home directory
-  (when (file-directory-p "~/code")
+  (when (file-directory-p "~/code") ; set prijectile home directory
     (setq projectile-project-search-path '("~/code")))
   :config
   (require 'helm-config)
