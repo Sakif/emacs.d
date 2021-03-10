@@ -9,19 +9,18 @@
   :init
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
-  ;; (scroll-bar-mode -1) ; no scroll bar
+  (scroll-bar-mode -1) ; no scroll bar
   (column-number-mode) ; shoes the column number
   (global-visual-line-mode) ; warping
   (global-auto-revert-mode t) ; automatically reloads buffer if changes made outside of Emacs
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
+  (setq inhibit-startup-message t) ; no start up message
   (set-face-attribute
    'default nil
    :font "JetBrains Mono"
    :height 160)
-  (setq inhibit-startup-message t) ; no start up message
-  (custom-set-variables ; emacs opens maximized
-   '(initial-frame-alist (quote ((fullscreen . maximized)))))
+
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -80,10 +79,6 @@
    ("M-y" . helm-show-kill-ring)
    ("C-x C-f" . helm-find-files)))
 
-;; ripgrep search
-(use-package helm-rg)
-(use-package projectile-ripgrep)
-
 (use-package format-all
   ;; formating document before saving
   :hook
@@ -124,7 +119,6 @@
   ("C-c f" . iedit-mode))
 
 ;; language specific customization
-
 (use-package eglot
   ;; language server
 	;;; Commentary:
@@ -149,11 +143,3 @@
 (use-package python-mode
   :hook
   (python-mode . eglot-ensure))
-
-(use-package markdown-mode
-  :init
-  (setq markdown-command "multimarkdown")
-  :mode
-  (("README\\.md\\'" . gfm-mode)
-   ("\\.md\\'" . markdown-mode)
-   ("\\.markdown\\'" . markdown-mode)))
