@@ -1,6 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
+;(package-initialize)
 
 ;; get use-package
 (unless (package-installed-p 'use-package) (package-install 'use-package))
@@ -20,7 +20,6 @@
    'default nil
    :font "JetBrains Mono"
    :height 160)
-
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -62,8 +61,8 @@
   ;; helm and projectile
   :init
   (global-unset-key (kbd "C-x c"))
-  (when (file-directory-p "~/code") ; set prijectile home directory
-    (setq projectile-project-search-path '("~/code")))
+  (when (file-directory-p "/mnt/d/Apps/RimWorld/Mods") ; set prijectile home directory
+    (setq projectile-project-search-path '("/mnt/d/Apps/RimWorld/Mods")))
   :config
   (require 'helm-config)
   (projectile-mode +1)
@@ -143,3 +142,16 @@
 (use-package python-mode
   :hook
   (python-mode . eglot-ensure))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(python-mode rust-mode eglot iedit which-key yasnippet auto-package-update company format-all helm-projectile smartparens rainbow-delimiters doom-modeline doom-themes use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
