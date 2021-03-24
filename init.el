@@ -73,10 +73,10 @@
   :bind-keymap
   ("C-x p" . projectile-command-map)
   :bind
-  (("M-x" . helm-M-x)
-   ("C-x b" . helm-mini)
-   ("M-y" . helm-show-kill-ring)
-   ("C-x C-f" . helm-find-files)))
+  ("M-x" . helm-M-x)
+  ("C-x b" . helm-mini)
+  ("M-y" . helm-show-kill-ring)
+  ("C-x C-f" . helm-find-files))
 
 (use-package format-all
   ;; formating document before saving
@@ -88,8 +88,8 @@
   :config
   (global-company-mode)
   :custom
-  ((company-idle-delay 0)
-   (company-minimum-prefix-length 1))
+  (company-idle-delay 0)
+  (company-minimum-prefix-length 1)
   :bind
   ("M-/" . company-complete-common-or-cycle))
 
@@ -119,17 +119,9 @@
 
 ;; language specific customization
 (use-package eglot
-  ;; language server
-	;;; Commentary:
-  ;; "C-h ." display-local-help
-  ;; renaming symbol at point with eglot: eglot-rename
-  ;; find defination default: "M-." xref-find-definitions
-  ;; eglot-find-declaration
-  ;; eglot-find-implementation
-  ;; eglot-find-typeDefinition
   :hook
-  ((c-mode . eglot-ensure)
-   (c++-mode . eglot-ensure))
+  (c-mode . eglot-ensure)
+  (c++-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   :custom
@@ -142,16 +134,3 @@
 (use-package python-mode
   :hook
   (python-mode . eglot-ensure))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(python-mode rust-mode eglot iedit which-key yasnippet auto-package-update company format-all helm-projectile smartparens rainbow-delimiters doom-modeline doom-themes use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
