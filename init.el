@@ -29,7 +29,7 @@
 
 (use-package doom-themes
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-nord t))
 
 (use-package doom-modeline
   ;; better mode line
