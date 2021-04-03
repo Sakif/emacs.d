@@ -2,7 +2,9 @@
 (add-to-list 'package-archives '("melpa" . "https://stable.melpa.org/packages/") t)
 
 ;; get use-package
-(unless (package-installed-p 'use-package) (package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 (require 'use-package)
 (use-package use-package
   :init
@@ -125,17 +127,16 @@
   :hook
   (python-mode . eglot-ensure))
 
-(use-package web-mode)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(web-mode which-key use-package smartparens rainbow-delimiters python-mode language-id inheritenv iedit html5-schema helm-projectile eglot doom-themes doom-modeline company-web auto-package-update)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package web-mode
+  :mode "\\.html\\'"
+  :custom
+  (web-mode-enable-current-element-highlight t)
+  (web-mode-enable-css-colorization t)
+  (web-mode-enable-auto-pairing t)
+  (web-mode-comment-style 2)
+  (web-mode-block-padding 0)
+  (web-mode-script-padding 1)
+  (web-mode-style-padding 1)
+  (web-mode-code-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-markup-indent-offset 2))
