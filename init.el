@@ -125,15 +125,14 @@
   :hook
   (python-mode . eglot-ensure))
 
-(use-package company-web)
-(use-package html5-schema)
+(use-package web-mode)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(html5-schema company-web which-key use-package smartparens rainbow-delimiters python-mode iedit helm-projectile eglot doom-themes doom-modeline company auto-package-update)))
+   '(web-mode which-key use-package smartparens rainbow-delimiters python-mode language-id inheritenv iedit html5-schema helm-projectile eglot doom-themes doom-modeline company-web auto-package-update)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
