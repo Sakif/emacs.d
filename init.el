@@ -16,7 +16,7 @@
   (column-number-mode) ; shoes the column number
   (global-visual-line-mode) ; warping
   ; automatically reloads buffer if changes made outside of Emacs
-  (global-auto-revert-mode t) 
+  (global-auto-revert-mode t)
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (setq inhibit-startup-message t) ; no start up message
@@ -80,7 +80,9 @@
   ("M-y" . helm-show-kill-ring)
   ("C-x C-f" . helm-find-files))
 
-;;(use-package format-all)
+(use-package format-all
+  :hook
+  (before-save . format-all-buffer))
 
 (use-package company
   :config ; code compleation framework
@@ -97,7 +99,7 @@
   :custom
   (auto-package-update-delete-old-versions t))
 
-;;(use-package yasnippet :config (yas-global-mode 1)) 
+;;(use-package yasnippet :config (yas-global-mode 1))
 
 (use-package which-key
   :init ; tells which function is binded to which keyboard shortcut
@@ -114,7 +116,6 @@
   :hook ; language server protocol
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure)
-  (before-save . eglot-format-buffer)
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-11"))
   :custom
@@ -123,17 +124,16 @@
 (use-package python-mode
   :hook
   (python-mode . eglot-ensure))
-
-(use-package web-mode
-  :mode "\\.html\\'"
-  :custom
-  (web-mode-enable-current-element-highlight t)
-  (web-mode-enable-css-colorization t)
-  (web-mode-enable-auto-pairing t)
-  (web-mode-comment-style 2)
-  (web-mode-block-padding 0)
-  (web-mode-script-padding 1)
-  (web-mode-style-padding 1)
-  (web-mode-code-indent-offset 2)
-  (web-mode-css-indent-offset 2)
-  (web-mode-markup-indent-offset 2))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(company-clang which-key web-mode use-package smartparens rainbow-delimiters python-mode iedit helm-projectile eglot doom-themes doom-modeline company auto-package-update auctex)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
