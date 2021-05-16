@@ -124,21 +124,3 @@
 (use-package python-mode
   :hook
   (python-mode . eglot-ensure))
-
-(use-package omnisharp
-  :custom
-  (c-basic-offset 4)
-  (truncate-lines t)
-  (tab-width 4)
-  (evil-shift-width 4)
-  (indent-tabs-mode nil)
-  (c-syntactic-indentation t)
-  :config
-  (c-set-style "ellemtel")
-  (electric-pair-local-mode 1)
-  (eval-after-load
-    'company
-    '(add-to-list
-      'company-backends 'company-omnisharp))
-  :hook
-  (csharp-mode . omnisharp-mode))
