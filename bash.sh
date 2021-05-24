@@ -8,6 +8,7 @@ alias xmlf="xmlformat --overwrite"
 alias xmlc="xmlformat --compress --overwrite"
 alias t-start="sudo service transmission-daemon start"
 alias t-stop="sudo service transmission-daemon stop"
+alias make="make --max-load -j 3"
 
 cb () {
     tar cf "${PWD##*/}.cbt" * &&
