@@ -122,5 +122,6 @@
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider))))
 
 (use-package python-mode
+  :mode "\\.rpy\\'"
   :hook
   (python-mode . eglot-ensure))
