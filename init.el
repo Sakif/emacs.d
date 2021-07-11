@@ -12,7 +12,7 @@
   :config ; not necesserily for use-package but general config
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
-  ;;(scroll-bar-mode -1) ; no scroll bar
+  (scroll-bar-mode -1) ; no scroll bar
   (column-number-mode) ; shoes the column number
   (global-visual-line-mode) ; warping
   ; automatically reloads buffer if changes made outside of Emacs
@@ -20,6 +20,7 @@
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (setq inhibit-startup-message t) ; no start up message
+  (toggle-frame-maximized)
   (set-face-attribute ; set font
     'default nil
     :font "JetBrains Mono"
@@ -38,7 +39,7 @@
 
 (use-package doom-modeline
   :custom ; better mode line
-  (doom-modeline-height 16)
+  ;;(doom-modeline-height 16)
   (doom-modeline-buffer-file-name-style 'file-name)
   (doom-modeline-minor-modes (featurep 'minions))
   (doom-modeline-display-default-persp-name t)
@@ -46,6 +47,7 @@
   (doom-modeline-icon (display-graphic-p))
   (doom-modeline-indent-info t)
   :config
+  (display-battery-mode)
   (doom-modeline-mode 1))
 
 (use-package rainbow-delimiters

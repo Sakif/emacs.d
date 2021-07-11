@@ -6,10 +6,10 @@ alias zstd="zstdmt -v --rm --ultra -22"
 alias ed="emacs -nw"
 alias xmlf="xmlformat --overwrite"
 alias xmlc="xmlformat --overwrite --compress"
-alias t-start="sudo service transmission-daemon start"
-alias t-stop="sudo service transmission-daemon stop"
-alias make="make --max-load -j 3"
-alias lsd="ls -d */"
+alias make="make --max-load -j`nproc`"
+alias ll="ls -l"
+alias la="ls -A"
+alias l="ls -CF"
 
 export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
