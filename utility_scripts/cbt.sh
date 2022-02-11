@@ -2,7 +2,7 @@
 
 cwd=$PWD
 
-for d in `find . -mindepth 1 -maxdepth 1 -type d`;
+for d in `fd -t d --exact-depth 1`;
 do
     cd "$d";
     tar cf "${PWD##*/}.cbt" *;

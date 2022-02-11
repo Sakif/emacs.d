@@ -1,0 +1,33 @@
+#+TITLE: Config files with utility scripts
+#+AUTHOR: Sakif Fahmid Zaman
+
+* deleting git history
+Remove the history from a git repo
+
+#+BEGIN_SRC bash
+rm -rf .git
+#+END_SRC
+
+Recreate the repos from the current content only
+#+BEGIN_SRC bash
+git init
+git add .
+git commit -m "init"
+#+END_SRC
+
+Push to the github remote repos ensuring you overwrite history
+#+BEGIN_SRC bash
+git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
+git push -u --force origin master
+#+END_SRC
+
+* making bulk edit
+** bulk xml compression
+#+BEGIN_SRC bash
+fd -e xml -x xmlformat --overwrite --selfclose --compress
+#+END_SRC
+
+** convert to webp
+#+BEGIN_SRC bash
+fd -e png -e jpg -x convert -quality 85 {} {.}.webp
+#+END_SRC
