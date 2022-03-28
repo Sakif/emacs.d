@@ -1,6 +1,22 @@
 #+TITLE: Config files with utility scripts
 #+AUTHOR: Sakif Fahmid Zaman
 
+* Rogue like
+[[https://kenney.nl/assets/micro-roguelike][Micro Roguelike tiles]]
+[[https://kenney.nl/assets/bit-pack][1-Bit Pack]]
+[[https://www.reddit.com/r/roguelikedev/comments/ifzwvp/urizen_1bit_tilesets_huge_update_with_400/][Urizen 1Bit Tilesets]]
+
+[[http://www.roguebasin.com/index.php?title=Complete_roguelike_tutorial_using_C%2B%2B_and_libtcod_-_part_1:_setting_up][cpp + tcod]]
+[[https://tomassedovic.github.io/roguelike-tutorial/part-1-graphics.html][rust + tcod]]
+[[http://www.roguebasin.com/index.php?title=Roguelike_Tutorial,_using_python3%2Btdl][python3+tdl]]
+[[http://rogueliketutorials.com/][python3 + tcod]]
+
+[[https://github.com/vurmux/urizen][Roguelike dungeon generation library written on Python3]]
+[[https://www.reddit.com/r/roguelikedev/comments/m9dd54/article_cave_generation_filling_the_rooms/][Cave Generation]]
+[[https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/][Rooms and Mazes: A Procedural Dungeon Generator]]
+
+[[http://www.zorbus.net/][Zorbus]] [[https://aikoncwd.ovh/roguelike/][aikoncwd]]
+
 * deleting git history
 Remove the history from a git repo
 
