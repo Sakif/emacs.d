@@ -6,6 +6,7 @@ alias zstd="zstdmt -v --rm --ultra -22"
 alias ed="clear;emacs -nw"
 alias xmlf="xmlformat --overwrite --selfclose"
 alias make="make --max-load -j`nproc`"
+
 if [ -f /usr/bin/fdfind ]; then
     xml_c () {
         fdfind -e xml -x xmlformat --overwrite --selfclose --compress

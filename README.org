@@ -7,9 +7,6 @@
 [[https://www.reddit.com/r/roguelikedev/comments/ifzwvp/urizen_1bit_tilesets_huge_update_with_400/][Urizen 1Bit Tilesets]]
 
 [[http://www.roguebasin.com/index.php?title=Complete_roguelike_tutorial_using_C%2B%2B_and_libtcod_-_part_1:_setting_up][cpp + tcod]]
-[[https://tomassedovic.github.io/roguelike-tutorial/part-1-graphics.html][rust + tcod]]
-[[http://www.roguebasin.com/index.php?title=Roguelike_Tutorial,_using_python3%2Btdl][python3+tdl]]
-[[http://rogueliketutorials.com/][python3 + tcod]]
 
 [[https://github.com/vurmux/urizen][Roguelike dungeon generation library written on Python3]]
 [[https://www.reddit.com/r/roguelikedev/comments/m9dd54/article_cave_generation_filling_the_rooms/][Cave Generation]]

@@ -38,7 +38,6 @@
 
 (use-package helm-rg)
 (use-package magit)
-(use-package auctex-latexmk)
 
 (use-package doom-themes
   :config ; theme
@@ -50,10 +49,11 @@
   (doom-modeline-minor-modes (featurep 'minions))
   (doom-modeline-display-default-persp-name t)
   (doom-modeline-project-detection 'project)
-  (doom-modeline-icon (display-graphic-p))
   (doom-modeline-indent-info t)
   :config
-  (display-battery-mode)
+  (setq doom-modeline-height 1)
+  (display-battery-mode) ; displays current battery charge
+  (display-time-mode 1) ; displays the current time
   (doom-modeline-mode 1))
 
 (use-package rainbow-delimiters
