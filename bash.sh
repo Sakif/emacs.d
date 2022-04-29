@@ -17,16 +17,6 @@ elif [ -f /usr/bin/fd ]; then
     }
 fi
 
-if [ -f /usr/bin/clang ]; then
-# if clang exists set clang as default c compiler
-    export CC=/usr/bin/clang
-fi
-
-if [ -f /usr/bin/clang++ ]; then
-# if clang++ exists set clang as default cpp compiler
-    export CXX=/usr/bin/clang++
-fi
-
 cb () {
     tar cf "${PWD##*/}.cbt" * &&
     mv -v "${PWD##*/}.cbt" ../;
