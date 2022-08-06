@@ -12,7 +12,7 @@
   :config ; not necesserily for use-package but general config
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
-  (scroll-bar-mode -1) ; no scroll bar
+  ; (scroll-bar-mode -1) ; no scroll bar
   (column-number-mode) ; shoes the column number
   (global-visual-line-mode) ; warping
   (global-auto-revert-mode t)
@@ -78,8 +78,8 @@
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   ; list actions using C-z
   (define-key helm-map (kbd "C-z")  'helm-select-action)
-  :bind-keymap
-  ("C-x p" . projectile-command-map)
+  ;:bind-keymap
+  ;("C-c c" . projectile-command-map)
   :bind
   ("M-x" . helm-M-x)
   ("C-x b" . helm-mini)

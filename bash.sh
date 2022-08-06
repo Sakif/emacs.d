@@ -7,15 +7,9 @@ alias ed="clear;emacs -nw"
 alias xmlf="xmlformat --overwrite --selfclose"
 alias make="make --max-load -j`nproc`"
 
-if [ -f /usr/bin/fdfind ]; then
-    xml_c () {
-        fdfind -e xml -x xmlformat --overwrite --selfclose --compress
-    }
-elif [ -f /usr/bin/fd ]; then
-    xml_c () {
-        fd -e xml -x xmlformat --overwrite --selfclose --compress
-    }
-fi
+xml_c () {
+    fd -e xml -x xmlformat --overwrite --selfclose --compress
+}
 
 cb () {
     tar cf "${PWD##*/}.cbt" * &&
