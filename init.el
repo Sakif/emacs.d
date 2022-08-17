@@ -12,9 +12,8 @@
   :config ; not necesserily for use-package but general config
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
-  ; (scroll-bar-mode -1) ; no scroll bar
   (column-number-mode) ; shoes the column number
-  (global-visual-line-mode) ; warping
+  (global-visual-line-mode) ; warping  
   (global-auto-revert-mode t)
   ; automatically reloads buffer if changes made outside of Emacs
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
@@ -32,6 +31,7 @@
   (make-backup-files nil) ; no backup files
   (visible-bell t) ; visual bell
   (tab-width 2) ; tab width
+  (warning-suppress-types '((comp)))
   (indent-tabs-mode nil) ; do not use tab
   (inhibit-startup-message t) ; no start up message
   (use-package-always-ensure t)) ; if package is not installed install it
@@ -41,7 +41,11 @@
 
 (use-package doom-themes
   :config ; theme
-  (load-theme 'doom-vibrant t))
+  (load-theme 'doom-one t)
+  (doom-themes-org-config)
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t))
 
 (use-package doom-modeline
   :custom ; better mode line
@@ -51,7 +55,7 @@
   (doom-modeline-project-detection 'project)
   (doom-modeline-indent-info t)
   :config
-  (setq doom-modeline-height 1)
+  ;(setq doom-modeline-height 1)
   (display-battery-mode) ; displays current battery charge
   (display-time-mode 1) ; displays the current time
   (doom-modeline-mode 1))
@@ -78,8 +82,6 @@
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   ; list actions using C-z
   (define-key helm-map (kbd "C-z")  'helm-select-action)
-  ;:bind-keymap
-  ;("C-c c" . projectile-command-map)
   :bind
   ("M-x" . helm-M-x)
   ("C-x b" . helm-mini)
@@ -128,8 +130,3 @@
 (use-package rust-mode
   :hook
   (rust-mode . eglot-ensure))
-
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)
-    (python . t)))
