@@ -117,7 +117,7 @@
   :hook ; language server protocol
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure)
-  (before-save . eglot-format-buffer)
+  ;(before-save . eglot-format-buffer)
   :custom
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :config

@@ -34,13 +34,4 @@ git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
 git push -u --force origin master
 #+END_SRC
 
-* making bulk edit
-** bulk xml compression
-#+BEGIN_SRC bash
-fd -e xml -x xmlformat --overwrite --selfclose --compress
-#+END_SRC
-
-** convert to webp
-#+BEGIN_SRC bash
-fd -e png -e jpg -x convert -quality 85 {} {.}.webp
-#+END_SRC
+* s
