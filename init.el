@@ -13,9 +13,8 @@
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
   (column-number-mode) ; shoes the column number
-  (global-visual-line-mode) ; warping  
-  (global-auto-revert-mode t)
-  ; automatically reloads buffer if changes made outside of Emacs
+  (global-visual-line-mode) ; warping
+  (global-auto-revert-mode t) ; automatically reloads buffer
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (toggle-frame-maximized) ; open miximized
@@ -36,7 +35,6 @@
   (inhibit-startup-message t) ; no start up message
   (use-package-always-ensure t)) ; if package is not installed install it
 
-(use-package helm-rg)
 (use-package magit)
 
 (use-package doom-themes
@@ -55,7 +53,6 @@
   (doom-modeline-project-detection 'project)
   (doom-modeline-indent-info t)
   :config
-  ;(setq doom-modeline-height 1)
   (display-battery-mode) ; displays current battery charge
   (display-time-mode 1) ; displays the current time
   (doom-modeline-mode 1))
@@ -78,10 +75,10 @@
   (projectile-mode +1)
   (helm-mode 1)
   (helm-projectile-on)
-  ; make TAB work in terminal
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-  ; list actions using C-z
+  ; ^ make TAB work in terminal
   (define-key helm-map (kbd "C-z")  'helm-select-action)
+  ; ^ list actions using C-z
   :bind
   ("M-x" . helm-M-x)
   ("C-x b" . helm-mini)
@@ -117,7 +114,7 @@
   :hook ; language server protocol
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure)
-  ;(before-save . eglot-format-buffer)
+  (before-save . eglot-format-buffer)
   :custom
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :config
@@ -126,7 +123,16 @@
 (use-package python-mode
   :hook
   (python-mode . eglot-ensure))
-
-(use-package rust-mode
-  :hook
-  (rust-mode . eglot-ensure))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(python-mode eglot iedit which-key auto-package-update company helm-projectile smartparens rainbow-delimiters doom-modeline doom-themes magit use-package cmake-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
