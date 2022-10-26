@@ -110,29 +110,25 @@
   :bind ; for finding all in buffer and replacing them
   ("C-c f" . iedit-mode))
 
+(defun format-before-save ()
+  "Eglot will format the buffer before saving."
+  (when buffer-file-name
+    (setq-local buffer-save-without-query t))
+  (add-hook 'before-save-hook 'eglot-format-buffer nil t))
+
 (use-package eglot
-  :hook ; language server protocol
+  :hook ; language server protocol and c/cpp configuration
   (c-mode . eglot-ensure)
+  (c-mode . format-before-save)
   (c++-mode . eglot-ensure)
-  (before-save . eglot-format-buffer)
+  (c++-mode . format-before-save)
   :custom
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
 
+; python
 (use-package python-mode
   :hook
-  (python-mode . eglot-ensure))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(python-mode eglot iedit which-key auto-package-update company helm-projectile smartparens rainbow-delimiters doom-modeline doom-themes magit use-package cmake-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  (python-mode . eglot-ensure)
+  (python-mode . format-before-save))
