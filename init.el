@@ -132,16 +132,3 @@
   :hook
   (python-mode . eglot-ensure)
   (python-mode . format-before-save))
-
-; rust
-(use-package rustic
-  :hook
-  (rust-mode . eglot-ensure)
-  (rust-mode . format-before-save)
-  :custom
-  (rustic-lsp-client 'eglot)
-  (rustic-analyzer-command '("~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer")))
-(defun format-rust-project ()
-  (when buffer-file-name
-    (setq-local buffer-save-without-query t))
-  (add-hook 'before-save-hook 'rustic-cargo-fmt))
