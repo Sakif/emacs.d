@@ -17,11 +17,6 @@
   (global-auto-revert-mode t) ; automatically reloads buffer
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
-  (toggle-frame-maximized) ; open miximized
-  (set-face-attribute
-    'default nil ; set font
-    :font "JetBrains Mono"
-    :height 320)
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -126,9 +121,3 @@
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
-
-; python
-(use-package python-mode
-  :hook
-  (python-mode . eglot-ensure)
-  (python-mode . format-before-save))
