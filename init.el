@@ -62,14 +62,12 @@
   (require 'smartparens-config)
   (show-paren-mode t))
 
-(use-package helm-projectile
+(use-package helm
   :init ; helm and projectile
   (global-unset-key (kbd "C-x c"))
   :config
   (require 'helm-config)
-  (projectile-mode +1)
   (helm-mode 1)
-  (helm-projectile-on)
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
   ; ^ make TAB work in terminal
   (define-key helm-map (kbd "C-z")  'helm-select-action)
@@ -121,3 +119,5 @@
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
+
+(use-package el-fetch)

@@ -3,7 +3,6 @@ PS1="[\u@\h \W]\$ "
 
 alias cls="clear"
 alias zstd="zstdmt -v --rm --ultra -22"
-alias xmlf="xmlformat --overwrite --selfclose"
 alias make="make --max-load -j`nproc`"
 
 cb () {
@@ -28,3 +27,5 @@ xml_c () {
 xml_f () {
     fd -e xml -x xmlformat --overwrite --selfclose
 }
+
+steam="/home/z/.local/share/Steam/steamapps/common/"
