@@ -31,52 +31,21 @@
   (use-package-always-ensure t)) ; if package is not installed install it
 
 (use-package magit)
+(use-package el-fetch)
 
-(use-package doom-themes
-  :config ; theme
-  (load-theme 'doom-vibrant t)
-  (doom-themes-org-config)
+(use-package vertico
+  :custom ; VERTical Interactive COmpletion
+  (vertico-cycle t)
+  :init
+  (vertico-mode)
+  (savehist-mode))
+
+(use-package marginalia
+  :after vertico
   :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t))
-
-(use-package doom-modeline
-  :custom ; better mode line
-  (doom-modeline-buffer-file-name-style 'file-name)
-  (doom-modeline-minor-modes (featurep 'minions))
-  (doom-modeline-display-default-persp-name t)
-  (doom-modeline-project-detection 'project)
-  (doom-modeline-indent-info t)
-  :config
-  (display-battery-mode) ; displays current battery charge
-  (display-time-mode 1) ; displays the current time
-  (doom-modeline-mode 1))
-
-(use-package rainbow-delimiters
-  :hook ; colourful paranthesis
-  (prog-mode . rainbow-delimiters-mode))
-
-(use-package smartparens
-  :config ; close open paranthesis
-  (smartparens-global-mode 1)
-  (require 'smartparens-config)
-  (show-paren-mode t))
-
-(use-package helm
-  :init ; helm and projectile
-  (global-unset-key (kbd "C-x c"))
-  :config
-  (require 'helm-config)
-  (helm-mode 1)
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-  ; ^ make TAB work in terminal
-  (define-key helm-map (kbd "C-z")  'helm-select-action)
-  ; ^ list actions using C-z
-  :bind
-  ("M-x" . helm-M-x)
-  ("C-x b" . helm-mini)
-  ("M-y" . helm-show-kill-ring)
-  ("C-x C-f" . helm-find-files))
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
 
 (use-package company
   :config ; code compleation framework
@@ -120,4 +89,32 @@
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
 
-(use-package el-fetch)
+(use-package doom-themes
+  :config ; theme
+  (load-theme 'doom-vibrant t)
+  (doom-themes-org-config)
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t))
+
+(use-package doom-modeline
+  :custom ; better mode line
+  (doom-modeline-buffer-file-name-style 'file-name)
+  (doom-modeline-minor-modes (featurep 'minions))
+  (doom-modeline-display-default-persp-name t)
+  (doom-modeline-project-detection 'project)
+  (doom-modeline-indent-info t)
+  :config
+  (display-battery-mode) ; displays current battery charge
+  (display-time-mode 1) ; displays the current time
+  (doom-modeline-mode 1))
+
+(use-package rainbow-delimiters
+  :hook ; colourful paranthesis
+  (prog-mode . rainbow-delimiters-mode))
+
+(use-package smartparens
+  :config ; close open paranthesis
+  (smartparens-global-mode 1)
+  (require 'smartparens-config)
+  (show-paren-mode t))

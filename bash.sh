@@ -4,6 +4,7 @@ PS1="[\u@\h \W]\$ "
 alias cls="clear"
 alias zstd="zstdmt -v --rm --ultra -22"
 alias make="make --max-load -j`nproc`"
+alias cmake="cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1"
 
 cb () {
     tar cf "${PWD##*/}.cbt" * &&
