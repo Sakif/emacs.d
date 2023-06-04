@@ -30,22 +30,23 @@
   (inhibit-startup-message t) ; no start up message
   (use-package-always-ensure t)) ; if package is not installed install it
 
-(use-package magit)
-(use-package el-fetch)
-
-(use-package vertico
-  :custom ; VERTical Interactive COmpletion
-  (vertico-cycle t)
-  :init
-  (vertico-mode)
-  (savehist-mode))
-
-(use-package marginalia
-  :after vertico
-  :custom
-  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  :init
-  (marginalia-mode))
+(use-package helm-projectile
+  :init ; helm and projectile
+  (global-unset-key (kbd "C-x c"))
+  :config
+  (require 'helm-config)
+  (projectile-mode +1)
+  (helm-mode 1)
+  (helm-projectile-on)
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  ; ^ make TAB work in terminal
+  (define-key helm-map (kbd "C-z")  'helm-select-action)
+  ; ^ list actions using C-z
+  :bind
+  ("M-x" . helm-M-x)
+  ("C-x b" . helm-mini)
+  ("M-y" . helm-show-kill-ring)
+  ("C-x C-f" . helm-find-files))
 
 (use-package company
   :config ; code compleation framework
@@ -118,3 +119,19 @@
   (smartparens-global-mode 1)
   (require 'smartparens-config)
   (show-paren-mode t))
+
+(use-package magit)
+(use-package el-fetch)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(el-fetch magit smartparens rainbow-delimiters doom-modeline doom-themes eglot iedit which-key auto-package-update company helm-projectile use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
