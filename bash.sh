@@ -10,6 +10,18 @@ cb () {
     mv -v "${PWD##*/}.cbt" ../
 }
 
+folder_cbt() {
+    cwd=$PWD
+
+    for d in `fd -t d --exact-depth 1`;
+    do
+        cd "$d";
+        tar cf "${PWD##*/}.cbt" *;
+        mv -v "${PWD##*/}.cbt" ../;
+        cd "$cwd";
+    done
+}
+
 tzst () {
     tar cf "${PWD##*/}.tar" * &&
     zstdmt -v --rm --ultra -22 "${PWD##*/}.tar" &&
