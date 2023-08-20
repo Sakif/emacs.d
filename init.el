@@ -48,6 +48,13 @@
 ;;   ("M-y" . helm-show-kill-ring)
 ;;   ("C-x C-f" . helm-find-files))
 
+(use-package vertico
+  :custom ; VERTical Interactive COmpletion
+  (vertico-cycle t)
+  :init
+  (vertico-mode)
+  (savehist-mode))
+
 (use-package company
   :config ; code compleation framework
   (global-company-mode)
@@ -73,6 +80,41 @@
   :bind ; for finding all in buffer and replacing them
   ("C-c f" . iedit-mode))
 
+(use-package doom-themes
+  :config ; theme
+  (load-theme 'doom-vibrant t)
+  (doom-themes-org-config)
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t))
+
+;(use-package doom-modeline
+;  :custom ; better mode line
+;  (doom-modeline-buffer-file-name-style 'file-name)
+;  (doom-modeline-minor-modes (featurep 'minions))
+;  (doom-modeline-display-default-persp-name t)
+;  (doom-modeline-project-detection 'project)
+;  (doom-modeline-indent-info t)
+;  :config
+;  (display-battery-mode) ; displays current battery charge
+;  (display-time-mode 1) ; displays the current time
+;  (doom-modeline-mode 1))
+
+(use-package rainbow-delimiters
+  :hook ; colourful paranthesis
+  (prog-mode . rainbow-delimiters-mode))
+
+(use-package smartparens
+  :config ; close open paranthesis
+  (smartparens-global-mode 1)
+  (require 'smartparens-config)
+  (show-paren-mode t))
+
+(use-package magit)
+(use-package el-fetch)
+
+;; language server protocal ;;
+
 (defun format-before-save ()
   "Eglot will format the buffer before saving."
   (when buffer-file-name
@@ -90,42 +132,14 @@
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
 
-(use-package doom-themes
-  :config ; theme
-  (load-theme 'doom-vibrant t)
-  (doom-themes-org-config)
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t))
+(defun rustic-mode-auto-save-hook ()
+  "Enable auto-saving in rustic-mode buffers."
+  (when buffer-file-name
+    (setq-local compilation-ask-about-save nil)))
 
-(use-package doom-modeline
-  :custom ; better mode line
-  (doom-modeline-buffer-file-name-style 'file-name)
-  (doom-modeline-minor-modes (featurep 'minions))
-  (doom-modeline-display-default-persp-name t)
-  (doom-modeline-project-detection 'project)
-  (doom-modeline-indent-info t)
+(use-package rustic
   :config
-  (display-battery-mode) ; displays current battery charge
-  (display-time-mode 1) ; displays the current time
-  (doom-modeline-mode 1))
-
-(use-package rainbow-delimiters
-  :hook ; colourful paranthesis
-  (prog-mode . rainbow-delimiters-mode))
-
-(use-package smartparens
-  :config ; close open paranthesis
-  (smartparens-global-mode 1)
-  (require 'smartparens-config)
-  (show-paren-mode t))
-
-(use-package magit)
-(use-package el-fetch)
-
-(use-package vertico
-  :custom ; VERTical Interactive COmpletion
-  (vertico-cycle t)
-  :init
-  (vertico-mode)
-  (savehist-mode))
+  (add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
+  :custom
+  (rustic-lsp-client 'eglot))
+(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
