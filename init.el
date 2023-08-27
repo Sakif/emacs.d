@@ -17,6 +17,7 @@
   (global-auto-revert-mode t) ; automatically reloads buffer
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
+  (display-time-mode 1) ; displays the current time
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -88,17 +89,16 @@
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t))
 
-;(use-package doom-modeline
-;  :custom ; better mode line
-;  (doom-modeline-buffer-file-name-style 'file-name)
-;  (doom-modeline-minor-modes (featurep 'minions))
-;  (doom-modeline-display-default-persp-name t)
-;  (doom-modeline-project-detection 'project)
-;  (doom-modeline-indent-info t)
-;  :config
-;  (display-battery-mode) ; displays current battery charge
-;  (display-time-mode 1) ; displays the current time
-;  (doom-modeline-mode 1))
+;;(use-package doom-modeline
+;;  :custom ; better mode line
+;;  (doom-modeline-buffer-file-name-style 'file-name)
+;;  (doom-modeline-minor-modes (featurep 'minions))
+;;  (doom-modeline-display-default-persp-name t)
+;;  (doom-modeline-project-detection 'project)
+;;  (doom-modeline-indent-info t)
+;;  :config
+;;  (display-battery-mode) ; displays current battery charge
+;;  (doom-modeline-mode 1))
 
 (use-package rainbow-delimiters
   :hook ; colourful paranthesis
