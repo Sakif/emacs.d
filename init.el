@@ -131,6 +131,16 @@
   (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
+(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+
+(use-package gdscript-mode
+  :hook
+  (gdscript-mode . eglot-ensure)
+  :custom
+;;(gdscript-use-tab-indents t)
+;;(gdscript-indent-offset 2)
+  (gdscript-godot-executable "/home/z/.local/apps/godot")
+  (gdscript-gdformat-save-and-format t))
 
 (defun rustic-mode-auto-save-hook ()
   "Enable auto-saving in rustic-mode buffers."
@@ -142,4 +152,3 @@
   (add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
   :custom
   (rustic-lsp-client 'eglot))
-(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
