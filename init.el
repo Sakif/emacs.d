@@ -6,8 +6,8 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-(require 'use-package)
 
+(require 'use-package)
 (use-package use-package
   :config ; not necesserily for use-package but general config
   (menu-bar-mode -1) ; no menubar
@@ -24,7 +24,6 @@
   (user-full-name "Sakif Fahmid Zaman") ; Who am I?
   (user-mail-address "smfzaman@gmail.com") ; my email
   (make-backup-files nil) ; no backup files
-  (visible-bell t) ; visual bell
   (tab-width 2) ; tab width
   (warning-suppress-types '((comp)))
   (indent-tabs-mode nil) ; do not use tab
@@ -83,22 +82,23 @@
 
 (use-package doom-themes
   :config ; theme
-  (load-theme 'doom-vibrant t)
+  (load-theme 'doom-dark+ t)
   (doom-themes-org-config)
   :custom
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t))
 
-;;(use-package doom-modeline
-;;  :custom ; better mode line
-;;  (doom-modeline-buffer-file-name-style 'file-name)
-;;  (doom-modeline-minor-modes (featurep 'minions))
-;;  (doom-modeline-display-default-persp-name t)
-;;  (doom-modeline-project-detection 'project)
-;;  (doom-modeline-indent-info t)
-;;  :config
-;;  (display-battery-mode) ; displays current battery charge
-;;  (doom-modeline-mode 1))
+(use-package doom-modeline
+  :custom ; better mode line
+  (doom-modeline-buffer-file-name-style 'file-name)
+  (doom-modeline-minor-modes (featurep 'minions))
+  (doom-modeline-display-default-persp-name t)
+  (doom-modeline-project-detection 'project)
+  (doom-modeline-indent-info t)
+  (doom-modeline-icon nil)
+;;:config (display-battery-mode) ; displays current battery charge
+  :hook
+  (after-init . doom-modeline-mode))
 
 (use-package rainbow-delimiters
   :hook ; colourful paranthesis
@@ -139,7 +139,7 @@
   :custom
 ;;(gdscript-use-tab-indents t)
 ;;(gdscript-indent-offset 2)
-  (gdscript-godot-executable "/home/z/.local/apps/godot")
+;;(gdscript-godot-executable "/home/z/.local/apps/godot")
   (gdscript-gdformat-save-and-format t))
 
 (defun rustic-mode-auto-save-hook ()
