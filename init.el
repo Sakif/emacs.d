@@ -7,6 +7,12 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(defun format-before-save ()
+  "Eglot will format the buffer before saving."
+  (when buffer-file-name
+    (setq-local buffer-save-without-query t))
+  (add-hook 'before-save-hook 'eglot-format-buffer nil t))
+
 (require 'use-package)
 (use-package use-package
   :config ; not necesserily for use-package but general config
@@ -18,17 +24,25 @@
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (display-time-mode 1) ; displays the current time
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
+  ; eglot is built in
+  (c-mode . eglot-ensure)
+  (c-mode . format-before-save)
+  (c++-mode . eglot-ensure)
+  (c++-mode . format-before-save)
   :custom
   (user-full-name "Sakif Fahmid Zaman") ; Who am I?
   (user-mail-address "smfzaman@gmail.com") ; my email
+  (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   (make-backup-files nil) ; no backup files
   (tab-width 2) ; tab width
   (warning-suppress-types '((comp)))
   (indent-tabs-mode nil) ; do not use tab
   (inhibit-startup-message t) ; no start up message
   (use-package-always-ensure t)) ; if package is not installed install it
+(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
 ;; (use-package helm-projectile
 ;;   :init ; helm and projectile
@@ -113,25 +127,7 @@
 (use-package magit)
 (use-package el-fetch)
 
-;; language server protocal ;;
-
-(defun format-before-save ()
-  "Eglot will format the buffer before saving."
-  (when buffer-file-name
-    (setq-local buffer-save-without-query t))
-  (add-hook 'before-save-hook 'eglot-format-buffer nil t))
-
-(use-package eglot
-  :hook ; language server protocol and c/cpp configuration
-  (c-mode . eglot-ensure)
-  (c-mode . format-before-save)
-  (c++-mode . eglot-ensure)
-  (c++-mode . format-before-save)
-  :custom
-  (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
-  :config
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
-(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+;; language server protocal + language support ;;
 
 (use-package gdscript-mode
   :hook
@@ -151,4 +147,5 @@
   :config
   (add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
   :custom
-  (rustic-lsp-client 'eglot))
+  (rustic-lsp-client 'eglot)
+  (rustic-format-trigger 'on-save))
