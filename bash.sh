@@ -29,7 +29,7 @@ tzst () {
 }
 
 img_to_webp () {
-    fd -e bmp -e heif -e heic -e png -e jpg -x convert -quality $1 {} {.}.webp
+    fd -e bmp -e heif -e heic -e png -e jpg -x convert -quality 85 {} {.}.webp
 }
 
 xml_c () {
