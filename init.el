@@ -12,21 +12,27 @@
   :config ; not necesserily for use-package but general config
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
-  (column-number-mode) ; shoes the column number
+  (show-paren-mode t) ; show parenthesis
   (global-visual-line-mode) ; warping
+  (toggle-frame-fullscreen) ; open emacs fullscreen
   (global-auto-revert-mode t) ; automatically reloads buffer
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
+  (set-face-attribute ; setting font and size
+   'default t
+   :font "JetBrains Mono"
+   :height 125)
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
-  (make-backup-files nil) ; no backup files
   (tab-width 2) ; tab width
-  (warning-suppress-types '((comp)))
+  (scroll-bar-mode nil) ; no scroll bar
   (indent-tabs-mode nil) ; do not use tab
+  (make-backup-files nil) ; no backup files
   (inhibit-startup-message t) ; no start up message
+;; (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
-(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+;; (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
 (use-package vertico
   :custom ; VERTical Interactive COmpletion
@@ -62,7 +68,7 @@
 
 (use-package doom-themes
   :config ; theme
-  (load-theme 'doom-dracula t)
+  (load-theme 'doom-tokyo-night t)
   (doom-themes-org-config)
   :custom
   (doom-themes-enable-bold t)
@@ -76,7 +82,9 @@
   (doom-modeline-project-detection 'project)
   (doom-modeline-indent-info t)
   (doom-modeline-icon nil)
-;;:config (display-battery-mode) ; displays current battery charge
+  :config
+  (column-number-mode) ; shoes the column number
+  (display-time-mode) ; display time
   :hook
   (after-init . doom-modeline-mode))
 
@@ -84,15 +92,10 @@
   :hook ; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
 
-(use-package smartparens
-  :config ; close open paranthesis
-  (smartparens-global-mode 1)
-  (require 'smartparens-config)
-  (show-paren-mode t))
-
 (use-package rg
   :init
   (rg-enable-default-bindings))
+
 (use-package magit)
 (use-package el-fetch)
 
@@ -105,8 +108,6 @@
   (add-hook 'before-save-hook 'eglot-format-buffer nil t))
 
 (use-package eglot
-  :custom
-  (eglot-ignored-server-capabilites (quote (:documentHighlightProvider)))
   :hook
   (c-mode . eglot-ensure)
   (c-mode . format-before-save)
@@ -123,8 +124,3 @@
 ;;(gdscript-indent-offset 2)
 ;;(gdscript-godot-executable "/home/z/.local/apps/godot")
   (gdscript-gdformat-save-and-format t))
-
-(defun rustic-mode-auto-save-hook ()
-  "Enable auto-saving in rustic-mode buffers."
-  (when buffer-file-name
-    (setq-local compilation-ask-about-save nil)))
