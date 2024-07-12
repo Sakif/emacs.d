@@ -1,6 +1,6 @@
 (require 'package)
-(add-to-list 'package-archives ; adding melpa to package archives
-  '("melpa" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives ;; adding melpa to package archives
+ '("melpa" . "https://stable.melpa.org/packages/") t)
 
 ; get use-package
 (unless (package-installed-p 'use-package)
@@ -30,7 +30,7 @@
   (indent-tabs-mode nil) ; do not use tab
   (make-backup-files nil) ; no backup files
   (inhibit-startup-message t) ; no start up message
-;; (warning-suppress-types '((comp)))
+  (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
 ;; (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
@@ -120,7 +120,15 @@
   :hook
   (gdscript-mode . eglot-ensure)
   :custom
-;;(gdscript-use-tab-indents t)
-;;(gdscript-indent-offset 2)
+  (gdscript-use-tab-indents t)
+  (gdscript-indent-offset 2)
 ;;(gdscript-godot-executable "/home/z/.local/apps/godot")
   (gdscript-gdformat-save-and-format t))
+
+(use-package rust-mode
+  :init
+  (setq rust-mode-treesitter-derive t)
+  :custom
+  (rust-format-on-save t)
+  :hook
+  (rust-mode . eglot-ensure))

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PS1="[\u@\h \W]\$ "
+#PS1="[\u@\h \W]\$ "
 
 alias cls="clear"
 alias zstd="zstdmt -v --rm --ultra -22"
@@ -29,7 +29,7 @@ tzst () {
 }
 
 img_to_webp () {
-    fd -e jpeg -e bmp -e heif -e heic -e png -e jpg -x convert -quality 85 {} {.}.webp
+    fd -e jpeg -e bmp -e heif -e heic -e png -e jpg -x magick -quality 85 {} {.}.webp
 }
 
 xml_c () {
