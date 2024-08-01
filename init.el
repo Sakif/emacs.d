@@ -19,9 +19,7 @@
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (set-face-attribute ; setting font and size
-   'default t
-   :font "JetBrains Mono"
-   :height 125)
+   'default t :font "JetBrains Mono" :height 125)
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -30,6 +28,7 @@
   (indent-tabs-mode nil) ; do not use tab
   (make-backup-files nil) ; no backup files
   (inhibit-startup-message t) ; no start up message
+  (compile-command "./compile.sh") ; compile command
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
 ;; (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
@@ -127,7 +126,6 @@
 
 (use-package rust-mode
   :init
-  (setq rust-mode-treesitter-derive t)
   :custom
   (rust-format-on-save t)
   :hook
