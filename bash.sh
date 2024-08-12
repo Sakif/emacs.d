@@ -32,6 +32,10 @@ img_to_webp () {
     fd -e jpeg -e bmp -e heif -e heic -e png -e jpg -x magick -quality 85 {} {.}.webp
 }
 
+img_to_jxl () {
+    fd -e jpeg -e bmp -e heif -e heic -e png -e jpg -x magick {} {.}.jxl
+}
+
 xml_c () {
     fd -e xml -x xmlformat --overwrite --selfclose --compress
 }

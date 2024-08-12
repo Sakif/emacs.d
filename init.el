@@ -83,7 +83,7 @@
   (doom-modeline-icon nil)
   :config
   (column-number-mode) ; shoes the column number
-  (display-time-mode) ; display time
+;;(display-time-mode) ; display time
   :hook
   (after-init . doom-modeline-mode))
 
@@ -125,7 +125,6 @@
   (gdscript-gdformat-save-and-format t))
 
 (use-package rust-mode
-  :init
   :custom
   (rust-format-on-save t)
   :hook
