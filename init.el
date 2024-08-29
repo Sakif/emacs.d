@@ -31,7 +31,7 @@
   (compile-command "./compile.sh") ; compile command
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
-;; (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+;;(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
 (use-package vertico
   :custom ; VERTical Interactive COmpletion
@@ -83,7 +83,7 @@
   (doom-modeline-icon nil)
   :config
   (column-number-mode) ; shoes the column number
-;;(display-time-mode) ; display time
+  (display-time-mode) ; display time
   :hook
   (after-init . doom-modeline-mode))
 
