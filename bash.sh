@@ -4,6 +4,7 @@
 alias cls="clear"
 alias zstd="zstdmt -v --rm --ultra -22"
 alias make="make --max-load -j`nproc`"
+alias evening_adhkar="mpv https://youtu.be/fQUbhEHetks"
 
 cb () {
     tar cf "${PWD##*/}.cbt" * &&
