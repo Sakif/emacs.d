@@ -121,7 +121,7 @@
   :custom
   (gdscript-use-tab-indents t)
   (gdscript-indent-offset 2)
-;;(gdscript-godot-executable "/home/z/.local/apps/godot")
+  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64")
   (gdscript-gdformat-save-and-format t))
 
 (use-package rust-mode

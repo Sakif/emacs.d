@@ -4,7 +4,8 @@
 alias cls="clear"
 alias zstd="zstdmt -v --rm --ultra -22"
 alias make="make --max-load -j`nproc`"
-alias evening_adhkar="mpv https://youtu.be/fQUbhEHetks"
+alias evening_adhkar="mpv --no-video https://youtu.be/fQUbhEHetks"
+alias morning_adhkar="mpv --no-video https://youtu.be/P8EIBksC0MA"
 
 cb () {
     tar cf "${PWD##*/}.cbt" * &&
@@ -24,8 +25,8 @@ folder_cbt() {
 }
 
 tzst () {
-    tar cf "${PWD##*/}.tar" * &&
-    zstdmt -v --rm --ultra -22 "${PWD##*/}.tar" &&
+    tar cf "${PWD##*/}.tar" *;
+    zstdmt -v --rm --ultra -22 "${PWD##*/}.tar";
     mv -v "${PWD##*/}.tar.zst" ../
 }
 
@@ -37,12 +38,8 @@ img_to_jxl () {
     fd -e jpeg -e bmp -e heif -e heic -e png -e jpg -x magick {} {.}.jxl
 }
 
-xml_c () {
-    fd -e xml -x xmlformat --overwrite --selfclose --compress
-}
-
-xml_f () {
-    fd -e xml -x xmlformat --overwrite --selfclose
+xmlf () {
+    fd -e xml -x xmllint --format {} --output {}
 }
 
 steam="/home/z/.local/share/Steam/steamapps/common/"
