@@ -7,6 +7,17 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; A quick primer on the `use-package' function (refer to
+;; "C-h f use-package" for the full details).
+;;
+;; (use-package my-package-name
+;;   :ensure t    ; Ensure my-package is installed
+;;   :after foo   ; Load my-package after foo is loaded (seldom used)
+;;   :init        ; Run this code before my-package is loaded
+;;   :bind        ; Bind these keys to these functions
+;;   :custom      ; Set these variables
+;;   :config      ; Run this code after my-package is loaded
+
 (require 'use-package)
 (use-package use-package
   :config ; not necesserily for use-package but general config
