@@ -31,6 +31,7 @@
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (set-face-attribute ; setting font and size
    'default t :font "JetBrains Mono" :height 125)
+  (electric-pair-mode t) ; Automatically pair parentheses
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -123,6 +124,8 @@
   (c-mode . format-before-save)
   (c++-mode . eglot-ensure)
   (c++-mode . format-before-save)
+  (python-mode . eglot-ensure)
+  (python-mode . format-before-save)
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
 
