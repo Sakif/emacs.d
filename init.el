@@ -79,7 +79,7 @@
 
 (use-package doom-themes
   :config ; theme
-  (load-theme 'doom-tokyo-night t)
+  (load-theme 'doom-acario-dark t)
   (doom-themes-org-config)
   :custom
   (doom-themes-enable-bold t)
@@ -134,8 +134,7 @@
   (gdscript-mode . eglot-ensure)
   :custom
   (gdscript-use-tab-indents t)
-  (gdscript-indent-offset 2)
-  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/Godot Engine/godot.x11.opt.tools.64")
+  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/apps/Godot_v4.4-beta1_linux.x86_64")
   (gdscript-gdformat-save-and-format t))
 
 (use-package rust-mode
