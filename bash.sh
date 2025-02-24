@@ -39,7 +39,7 @@ img_to_jxl () {
 }
 
 xmlf () {
-    fd -e xml -x xmllint --format {} --output {}
+    fd -e xml -x xmlformat --selfclose --overwrite {}
 }
 
 steam="/home/z/.local/share/Steam/steamapps/common/"

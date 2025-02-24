@@ -1,11 +1,10 @@
 elpa/
-projectile-bookmarks.eld
-.lsp-session-v1
-.last-package-update-day
 recentf
 auto-save-list/
 projects
-projectile.cache
 transient/
 eln-cache/
 history
+eshell/
+.last-package-update-day
+.lsp-session-v1

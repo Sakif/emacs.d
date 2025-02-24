@@ -1,8 +1,5 @@
 (require 'package)
-(add-to-list 'package-archives ;; adding melpa to package archives
- '("melpa" . "https://stable.melpa.org/packages/") t)
-
-; get use-package
+;; get use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -11,7 +8,6 @@
 ;; "C-h f use-package" for the full details).
 ;;
 ;; (use-package my-package-name
-;;   :ensure t    ; Ensure my-package is installed
 ;;   :after foo   ; Load my-package after foo is loaded (seldom used)
 ;;   :init        ; Run this code before my-package is loaded
 ;;   :bind        ; Bind these keys to these functions
@@ -21,6 +17,8 @@
 (require 'use-package)
 (use-package use-package
   :config ; not necesserily for use-package but general config
+  (column-number-mode) ; shoes the column number
+  (display-time-mode) ; display time
   (menu-bar-mode -1) ; no menubar
   (tool-bar-mode -1) ; no toolbar
   (show-paren-mode t) ; show parenthesis
@@ -32,6 +30,7 @@
   (set-face-attribute ; setting font and size
    'default t :font "JetBrains Mono" :height 125)
   (electric-pair-mode t) ; Automatically pair parentheses
+  (load-theme 'modus-vivendi) ; theme
   :hook
   (before-save . whitespace-cleanup) ; clean up white space before save
   :custom
@@ -43,29 +42,19 @@
   (compile-command "./compile.sh") ; compile command
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
-;;(add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
 
 (use-package vertico
   :custom ; VERTical Interactive COmpletion
   (vertico-cycle t)
+  (vertico-resize nil)
+  (vertico-count 7) ; limit to a fixed size
   :init
   (vertico-mode)
   (savehist-mode))
 
-(use-package company
-  :config ; code compleation framework
-  (global-company-mode)
+(use-package orderless
   :custom
-  (company-idle-delay 0)
-  (company-minimum-prefix-length 1)
-  :bind
-  ("M-/" . company-complete-common-or-cycle))
-
-(use-package auto-package-update
-  :init ; automatically update package once a week
-  (auto-package-update-maybe)
-  :custom
-  (auto-package-update-delete-old-versions t))
+  (completion-styles '(orderless basic)))
 
 (use-package which-key
   :init ; tells which function is binded to which keyboard shortcut
@@ -73,42 +62,30 @@
   :custom
   (which-key-idle-delay 1))
 
+(use-package cape)
+(use-package corfu-terminal
+  :custom
+  (tab-always-indent 'complete)
+  :hook
+  (completion-at-point-functions . cape-file)
+  :init
+  (corfu-terminal-mode +1)
+  (global-corfu-mode))
+
 (use-package iedit
   :bind ; for finding all in buffer and replacing them
   ("C-c f" . iedit-mode))
-
-(use-package doom-themes
-  :config ; theme
-  (load-theme 'doom-acario-dark t)
-  (doom-themes-org-config)
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t))
-
-(use-package doom-modeline
-  :custom ; better mode line
-  (doom-modeline-buffer-file-name-style 'file-name)
-  (doom-modeline-minor-modes (featurep 'minions))
-  (doom-modeline-display-default-persp-name t)
-  (doom-modeline-project-detection 'project)
-  (doom-modeline-indent-info t)
-  (doom-modeline-icon nil)
-  :config
-  (column-number-mode) ; shoes the column number
-  (display-time-mode) ; display time
-  :hook
-  (after-init . doom-modeline-mode))
 
 (use-package rainbow-delimiters
   :hook ; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
 
-(use-package rg
-  :init
-  (rg-enable-default-bindings))
-
 (use-package magit)
-(use-package el-fetch)
+(use-package diminish)
+
+(use-package eldoc
+  :ensure nil
+  :diminish eldoc-mode)
 
 ;; language server protocal + language support ;;
 
@@ -128,14 +105,6 @@
   (python-mode . format-before-save)
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
-
-(use-package gdscript-mode
-  :hook
-  (gdscript-mode . eglot-ensure)
-  :custom
-  (gdscript-use-tab-indents t)
-  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/apps/Godot_v4.4-beta1_linux.x86_64")
-  (gdscript-gdformat-save-and-format t))
 
 (use-package rust-mode
   :custom
