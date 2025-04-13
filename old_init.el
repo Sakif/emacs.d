@@ -1,6 +1,3 @@
-(add-to-list 'package-archives ;; adding melpa to package archives
-             '("melpa" . "https://stable.melpa.org/packages/") t)
-
 (use-package company
   :config ; code compleation framework
   (global-company-mode)
@@ -9,13 +6,6 @@
   (company-minimum-prefix-length 1)
   :bind
   ("M-/" . company-complete-common-or-cycle))
-
-;; automatically update package once a week
-(use-package auto-package-update
-  :init
-  (auto-package-update-maybe)
-  :custom
-  (auto-package-update-delete-old-versions t))
 
 (use-package doom-themes
   :config ; theme
@@ -35,12 +25,6 @@
   (doom-modeline-icon nil)
   :hook
   (after-init . doom-modeline-mode))
-
-(use-package rg
-  :init ; rip grep
-  (rg-enable-default-bindings))
-
-(use-package el-fetch)
 
 (use-package gdscript-mode
   :hook

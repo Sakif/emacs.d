@@ -1,4 +1,7 @@
 (require 'package)
+(add-to-list 'package-archives ;; adding melpa to package archives
+             '("melpa" . "https://stable.melpa.org/packages/") t)
+
 ;; get use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -28,7 +31,7 @@
   (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
   (set-default-coding-systems 'utf-8) ; use UTF-8 by default
   (set-face-attribute ; setting font and size
-   'default t :font "JetBrains Mono" :height 125)
+   'default t :font "JetBrains Mono" :height 130)
   (electric-pair-mode t) ; Automatically pair parentheses
   (load-theme 'modus-vivendi) ; theme
   :hook
@@ -42,6 +45,13 @@
   (compile-command "./compile.sh") ; compile command
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
+
+;; automatically update package once a week
+(use-package auto-package-update
+  :init
+  (auto-package-update-maybe)
+  :custom
+  (auto-package-update-delete-old-versions t))
 
 (use-package vertico
   :custom ; VERTical Interactive COmpletion
@@ -80,12 +90,12 @@
   :hook ; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
 
-(use-package magit)
-(use-package diminish)
+(use-package rg
+  :init ; rip grep
+  (rg-enable-default-bindings))
 
-(use-package eldoc
-  :ensure nil
-  :diminish eldoc-mode)
+(use-package el-fetch)
+(use-package magit)
 
 ;; language server protocal + language support ;;
 
