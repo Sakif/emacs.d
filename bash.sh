@@ -2,7 +2,6 @@
 # PS1="[\u@\h \W]\$ "
 
 alias cls="clear"
-alias zstd="zstdmt -v --rm --ultra -22"
 alias make="make --max-load -j`nproc`"
 alias evening_adhkar="mpv --no-video https://youtu.be/fQUbhEHetks"
 alias morning_adhkar="mpv --no-video https://youtu.be/P8EIBksC0MA"
@@ -30,14 +29,15 @@ tzst () {
     mv -v "${PWD##*/}.tar.zst" ../
 }
 
-img_to_webp () {
-    fd -e jpg -e jpeg -e png -e bmp -e heif -e heic -x magick -quality 85 {} {.}.webp
-}
-
-img_to_jxl () {
-    fd -e jpg -e jpeg -e png -e bmp -e heif -e heic -x magick {} {.}.jxl
-}
-
 xmlf () {
     fd -e xml -x xmlformat --selfclose --overwrite {}
+}
+
+jxl_cb () {
+    tar cf "${PWD##*/}.cbt" *
+    mv -v "${PWD##*/}.cbt" ../
+    fd -e jpg -e jpeg -e png -e bmp -x magick {} {.}.jxl
+    fd -e jpg -e jpeg -e png -e bmp -x rm
+    zip -9rq "${PWD##*/}.cbz" *
+    mv -v "${PWD##*/}.cbz" ../
 }
