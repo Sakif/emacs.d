@@ -72,15 +72,11 @@
   :custom
   (which-key-idle-delay 1))
 
-(use-package cape)
-(use-package corfu-terminal
-  :custom
-  (tab-always-indent 'complete)
+(use-package cape
   :hook
   (completion-at-point-functions . cape-file)
-  :init
-  (corfu-terminal-mode +1)
-  (global-corfu-mode))
+  :custom
+  (tab-always-indent 'complete))
 
 (use-package iedit
   :bind ; for finding all in buffer and replacing them
@@ -121,3 +117,15 @@
   (rust-format-on-save t)
   :hook
   (rust-mode . eglot-ensure))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

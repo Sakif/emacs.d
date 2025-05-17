@@ -33,3 +33,8 @@
   (gdscript-use-tab-indents t)
   (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/apps/Godot_v4.4-beta1_linux.x86_64")
   (gdscript-gdformat-save-and-format t))
+
+(use-package corfu-terminal
+  :init
+  (corfu-terminal-mode +1)
+  (global-corfu-mode))
