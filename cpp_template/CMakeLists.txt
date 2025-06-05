@@ -14,14 +14,16 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_C_EXTENSIONS ON)
 
-project(cpp_template VERSION 0.1 LANGUAGES C CXX)
+project(c_temp VERSION 0.1 LANGUAGES C)
 
-find_package(Curses REQUIRED)
-include_directories(${CURSES_INCLUDE_DIR})
+find_package(SDL3 3.2 REQUIRED)
+find_package(SDL3_image REQUIRED)
+find_package(SDL3_ttf REQUIRED)
+include_directories(${SDL3_INCLUDE_DIR} ${SDL3_image_INCLUDE_DIR} ${SDL3_ttf_INCLUDE_DIR})
 
 file(GLOB_RECURSE SRC CONFIGURE_DEPENDS
   # Automatically reconfigure if source files are added/removed.
-  ${PROJECT_SOURCE_DIR}/src/*.cpp)
+  ${PROJECT_SOURCE_DIR}/src/*.c)
 
 add_executable(${PROJECT_NAME} ${SRC})
-target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${SDL3_LIBRARIES} ${SDL3_image_LIBRARIES} ${SDL3_ttf_LIBRARIES})

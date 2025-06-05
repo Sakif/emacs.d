@@ -2,7 +2,7 @@
 (add-to-list 'package-archives ;; adding melpa to package archives
              '("melpa" . "https://stable.melpa.org/packages/") t)
 
-;; get use-package
+;; get use-package if not already installed
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -46,9 +46,8 @@
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
 
-;; automatically update package once a week
 (use-package auto-package-update
-  :init
+  :init ; automatically update package once a week
   (auto-package-update-maybe)
   :custom
   (auto-package-update-delete-old-versions t))
@@ -57,7 +56,7 @@
   :custom ; VERTical Interactive COmpletion
   (vertico-cycle t)
   (vertico-resize nil)
-  (vertico-count 7) ; limit to a fixed size
+  (vertico-count 9) ; limit to a fixed size
   :init
   (vertico-mode)
   (savehist-mode))
@@ -73,10 +72,15 @@
   (which-key-idle-delay 1))
 
 (use-package cape
-  :hook
+  :hook ; Completion At Point Extensions
   (completion-at-point-functions . cape-file)
   :custom
   (tab-always-indent 'complete))
+
+(use-package corfu-terminal
+  :init ; COmpletion in Region FUnction
+  (corfu-terminal-mode +1)
+  (global-corfu-mode))
 
 (use-package iedit
   :bind ; for finding all in buffer and replacing them
@@ -88,7 +92,18 @@
 
 (use-package rg
   :init ; rip grep
-  (rg-enable-default-bindings))
+  (rg-enable-menu))
+
+(use-package doom-modeline
+  :custom ; better mode line
+  (doom-modeline-buffer-file-name-style 'file-name)
+  (doom-modeline-minor-modes (featurep 'minions))
+  (doom-modeline-display-default-persp-name t)
+  (doom-modeline-project-detection 'project)
+  (doom-modeline-indent-info t)
+  (doom-modeline-icon nil)
+  :hook
+  (after-init . doom-modeline-mode))
 
 (use-package el-fetch)
 (use-package magit)
@@ -117,15 +132,3 @@
   (rust-format-on-save t)
   :hook
   (rust-mode . eglot-ensure))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
