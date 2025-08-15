@@ -3,9 +3,15 @@
 
 alias cls="clear"
 alias make="make --max-load -j`nproc`"
-alias evening_adhkar="mpv --no-video https://youtu.be/fQUbhEHetks"
-alias morning_adhkar="mpv --no-video https://youtu.be/P8EIBksC0MA"
 steam="/home/z/.local/share/Steam/steamapps/common/"
+
+morning_adhkar () {
+    mpv --no-video "https://youtu.be/P8EIBksC0MA"
+}
+
+evening_adhkar () {
+    mpv --no-video "https://youtu.be/fQUbhEHetks"
+}
 
 cb () {
     tar cf "${PWD##*/}.cbt" *
