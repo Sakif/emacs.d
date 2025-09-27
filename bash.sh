@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PS1="[\u@\h \W]\$ "
+PS1="[\u@\h \W]\$ "
 
 alias cls="clear"
 alias make="make --max-load -j`nproc`"
@@ -14,8 +14,7 @@ evening_adhkar () {
 }
 
 cb () {
-    tar cf "${PWD##*/}.cbt" *
-    mv -v "${PWD##*/}.cbt" ../
+    tar cf "${PWD}.cbt" *
 }
 
 folder_cbt () {
@@ -23,16 +22,14 @@ folder_cbt () {
     for d in `fd -t d --exact-depth 1`;
     do
         cd "$d"
-        tar cf "${PWD##*/}.cbt" *
-        mv -v "${PWD##*/}.cbt" $cwd
+        tar cf "${PWD}.cbt" *
         cd "$cwd"
     done
 }
 
 tzst () {
-    tar cf "${PWD##*/}.tar" *
-    zstdmt -v --rm --ultra -22 "${PWD##*/}.tar"
-    mv -v "${PWD##*/}.tar.zst" ../
+    tar cf "${PWD}.tar" *
+    zstdmt -v --rm --ultra -22 "${PWD}.tar"
 }
 
 xmlf () {
@@ -40,10 +37,8 @@ xmlf () {
 }
 
 jxl_cb () {
-    tar cf "${PWD##*/}.cbt" *
-    mv -v "${PWD##*/}.cbt" ../
+    tar cf "${PWD}.cbt" *
     fd -e jpg -e jpeg -e png -e bmp -x magick {} {.}.jxl
     fd -e jpg -e jpeg -e png -e bmp -x rm
-    zip -9rq "${PWD##*/}.cbz" *
-    mv -v "${PWD##*/}.cbz" ../
+    zip -9rq "${PWD}.cbz" *
 }

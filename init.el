@@ -42,7 +42,7 @@
   (indent-tabs-mode nil) ; do not use tab
   (make-backup-files nil) ; no backup files
   (inhibit-startup-message t) ; no start up message
-  (compile-command "./compile.sh") ; compile command
+  ;; (compile-command "./compile.sh") ; compile command
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
 
