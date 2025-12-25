@@ -42,3 +42,13 @@ jxl_cb () {
     fd -e jpg -e jpeg -e png -e bmp -x rm
     zip -9rq "${PWD}.cbz" *
 }
+
+shallow_fetch_all () {
+    for i in */.git; do
+        echo $i
+        cd $i/..
+        git fetch --depth=1 --prune
+        git pull --depth=1 --prune --rebase
+        cd -
+    done
+}
