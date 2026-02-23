@@ -132,3 +132,11 @@
   (rust-format-on-save t)
   :hook
   (rust-mode . eglot-ensure))
+
+(use-package gdscript-mode
+  :hook
+  (gdscript-mode . eglot-ensure)
+  :custom
+  (gdscript-use-tab-indents t)
+  (gdscript-godot-executable "/home/z/Unity/godot/bin/godot.linuxbsd.editor.x86_64")
+  (gdscript-gdformat-save-and-format t))

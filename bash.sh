@@ -6,11 +6,15 @@ alias make="make --max-load -j`nproc`"
 steam="/home/z/.local/share/Steam/steamapps/common/"
 
 morning_adhkar () {
-    mpv --no-video "https://youtu.be/P8EIBksC0MA"
+    mpv --ytdl-format="ba" "https://youtu.be/P8EIBksC0MA"
 }
 
 evening_adhkar () {
-    mpv --no-video "https://youtu.be/fQUbhEHetks"
+    mpv --ytdl-format="ba" "https://youtu.be/fQUbhEHetks"
+}
+
+o_message() {
+    mpv "https://youtube.com/playlist?list=PLlXVKBG9es9UamBMS7aubQSGe8u9RYGOk"
 }
 
 cb () {
@@ -18,22 +22,16 @@ cb () {
 }
 
 folder_cbt () {
-    cwd=$PWD
-    for d in `fd -t d --exact-depth 1`;
-    do
+    for d in `fd -t d --exact-depth 1`;do
         cd "$d"
         tar cf "${PWD}.cbt" *
-        cd "$cwd"
+        cd -
     done
 }
 
 tzst () {
     tar cf "${PWD}.tar" *
     zstdmt -v --rm --ultra -22 "${PWD}.tar"
-}
-
-xmlf () {
-    fd -e xml -x xmlformat --selfclose --overwrite {}
 }
 
 jxl_cb () {
@@ -44,9 +42,10 @@ jxl_cb () {
 }
 
 shallow_fetch_all () {
-    for i in */.git; do
-        echo $i
+    for i in */.git;do
         cd $i/..
+        git stash
+        git stash drop
         git fetch --depth=1 --prune
         git pull --depth=1 --prune --rebase
         cd -

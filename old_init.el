@@ -14,11 +14,3 @@
   :custom
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t))
-
-(use-package gdscript-mode
-  :hook
-  (gdscript-mode . eglot-ensure)
-  :custom
-  (gdscript-use-tab-indents t)
-  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/apps/Godot_v4.4-beta1_linux.x86_64")
-  (gdscript-gdformat-save-and-format t))
