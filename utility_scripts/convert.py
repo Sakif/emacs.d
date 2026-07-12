@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import math
+
 
 def title(title: str):
     title = f" {title} "
@@ -24,11 +26,22 @@ def ounce_to_kg(input: float) -> float:
     return pound_to_kg(input/16)
 
 
+def radian_to_dms(input: float):
+    degree = input*180.0/math.pi
+    deg = int(degree)
+    minute = degree - deg
+    minute *= 60.0
+    minu = int(minute)
+    second = minute - minu
+    second *= 60.0
+    return deg, minu, second
+
+
 title("Vortex AMG")
 print("Magnification: 1-10x")
 imperial = 8.4
-metric = inch_to_meter(imperial)
-print(f"Length: {imperial:5.2f} in, {metric:.4f} m")
+metric = inch_to_meter(imperial)*1e3
+print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 18.8
 metric = ounce_to_kg(imperial)
 print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
@@ -36,8 +49,8 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 title("Eotech Vudu")
 print("Magnification: 1-10x")
 imperial = 10.63
-metric = inch_to_meter(imperial)
-print(f"Length: {imperial:5.2f} in, {metric:.4f} m")
+metric = inch_to_meter(imperial)*1e3
+print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 21.3
 metric = ounce_to_kg(imperial)
 print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
@@ -45,8 +58,8 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 title("Eotech Vudu")
 print("Magnification: 3-9x")
 imperial = 6.8
-metric = inch_to_meter(imperial)
-print(f"Length: {imperial:5.2f} in, {metric:.4f} m")
+metric = inch_to_meter(imperial)*1e3
+print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 16.0
 metric = ounce_to_kg(imperial)
 print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
@@ -54,8 +67,17 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 title("Eotech Vudu")
 print("Magnification: 4-12x")
 imperial = 7.1
-metric = inch_to_meter(imperial)
-print(f"Length: {imperial:5.2f} in, {metric:.4f} m")
+metric = inch_to_meter(imperial)*1e3
+print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 16.9
 metric = ounce_to_kg(imperial)
 print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
+
+title("Elcan Specter")
+print("Magnification: 1.5-6x")
+
+
+title("dems")
+rad = 300e-6
+deg, minu, sec = radian_to_dms(rad)
+print(f"{rad:e} rad is {deg:02}\N{DEGREE SIGN} {minu:02}\' {sec:.04}\"")

@@ -1,14 +1,14 @@
+(native-comp-available-p)
 (require 'package)
 (add-to-list 'package-archives ;; adding melpa to package archives
              '("melpa" . "https://stable.melpa.org/packages/") t)
 
-;; get use-package if not already installed
+;; get use-package if not already installed ;;
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-;; A quick primer on the `use-package' function (refer to
-;; "C-h f use-package" for the full details).
+;; A quick primer on the `use-package' function (refer to "C-h f use-package" for the full details).
 ;;
 ;; (use-package my-package-name
 ;;   :after foo   ; Load my-package after foo is loaded (seldom used)
@@ -46,41 +46,99 @@
   (warning-suppress-types '((comp)))
   (use-package-always-ensure t)) ; if package is not installed install it
 
+;; This automates the process of updating installed packages
 (use-package auto-package-update
-  :init ; automatically update package once a week
-  (auto-package-update-maybe)
   :custom
-  (auto-package-update-delete-old-versions t))
+  ;; Set the number of days between automatic updates.
+  ;; Here, packages will only be updated if at least 7 days have passed
+  ;; since the last successful update.
+  (auto-package-update-interval 7)
+  ;; Suppress display of the *auto-package-update results* buffer after updates.
+  ;; This keeps the user interface clean and avoids unnecessary interruptions.
+  (auto-package-update-hide-results t)
+  ;; Automatically delete old package versions after updates to reduce disk
+  ;; usage and keep the package directory clean. This prevents the accumulation
+  ;; of outdated files in Emacs's package directory, which consume
+  ;; unnecessary disk space over time.
+  (auto-package-update-delete-old-versions t)
+  ;; Uncomment the following line to enable a confirmation prompt
+  ;; before applying updates. This can be useful if you want manual control.
+  ;; (auto-package-update-prompt-before-update t)
+  :config
+  ;; Run package updates automatically at startup, but only if the configured
+  ;; interval has elapsed.
+  (auto-package-update-maybe))
 
-(use-package vertico
-  :custom ; VERTical Interactive COmpletion
-  (vertico-cycle t)
-  (vertico-resize nil)
-  (vertico-count 9) ; limit to a fixed size
+(use-package which-key ; tells which function is binded to which keyboard shortcut
+  :commands which-key-mode
+  :hook (after-init . which-key-mode)
+  :custom
+  (which-key-idle-delay 1)
+  (which-key-idle-secondary-delay 0.25)
+  (which-key-add-column-padding 1)
+  (which-key-max-description-length 40))
+
+;; Corfu enhances in-buffer completion by displaying a compact popup with
+;; current candidates, positioned either below or above the point. Candidates
+;; can be selected by navigating up or down.
+(use-package corfu-terminal
+  :commands
+  (corfu-mode global-corfu-mode)
+  :hook
+  ((prog-mode . corfu-mode)
+   (shell-mode . corfu-mode)
+   (eshell-mode . corfu-mode))
+  :custom
+  ;; Hide commands in M-x which do not apply to the current mode.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Disable Ispell completion function. As an alternative try `cape-dict'.
+  (text-mode-ispell-word-completion nil)
+  (tab-always-indent 'complete)
+  ;; Enable Corfu
+  :config
+  (global-corfu-mode))
+(unless (display-graphic-p)
+  (corfu-terminal-mode +1))
+
+;; Cape, or Completion At Point Extensions, extends the capabilities of
+;; in-buffer completion. It integrates with Corfu or the default completion UI,
+;; by providing additional backends through completion-at-point-functions.
+(use-package cape
+  :commands
+  (cape-dabbrev cape-file cape-elisp-block)
+  :bind
+  ("C-c p" . cape-prefix-map)
   :init
-  (vertico-mode)
-  (savehist-mode))
+  ;; Add to the global default value of `completion-at-point-functions' which is
+  ;; used by `completion-at-point'.
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block))
 
+;; Vertico provides a vertical completion interface, making it easier to
+;; navigate and select from completion candidates (e.g., when `M-x` is pressed).
+(use-package vertico
+  ;; (Note: It is recommended to also enable the savehist package.)
+  :config
+  (vertico-mode))
+
+;; Vertico leverages Orderless' flexible matching capabilities, allowing users
+;; to input multiple patterns separated by spaces, which Orderless then
+;; matches in any order against the candidates.
 (use-package orderless
   :custom
-  (completion-styles '(orderless basic)))
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package which-key
-  :init ; tells which function is binded to which keyboard shortcut
-  (which-key-mode)
-  :custom
-  (which-key-idle-delay 1))
-
-(use-package cape
-  :hook ; Completion At Point Extensions
-  (completion-at-point-functions . cape-file)
-  :custom
-  (tab-always-indent 'complete))
-
-(use-package corfu-terminal
-  :init ; COmpletion in Region FUnction
-  (corfu-terminal-mode +1)
-  (global-corfu-mode))
+;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
+;; In addition to that, Marginalia also enhances Vertico by adding rich
+;; annotations to the completion candidates displayed in Vertico's interface.
+(use-package marginalia
+  :commands
+  (marginalia-mode marginalia-cycle)
+  :hook
+  (after-init . marginalia-mode))
 
 (use-package iedit
   :bind ; for finding all in buffer and replacing them
@@ -116,7 +174,12 @@
     (setq-local buffer-save-without-query t))
   (add-hook 'before-save-hook 'eglot-format-buffer nil t))
 
+;; Set up the Language Server Protocol (LSP) servers using Eglot.
 (use-package eglot
+  :commands
+  (eglot-ensure
+   eglot-rename
+   eglot-format-buffer)
   :hook
   (c-mode . eglot-ensure)
   (c-mode . format-before-save)
@@ -132,11 +195,3 @@
   (rust-format-on-save t)
   :hook
   (rust-mode . eglot-ensure))
-
-(use-package gdscript-mode
-  :hook
-  (gdscript-mode . eglot-ensure)
-  :custom
-  (gdscript-use-tab-indents t)
-  (gdscript-godot-executable "/home/z/Unity/godot/bin/godot.linuxbsd.editor.x86_64")
-  (gdscript-gdformat-save-and-format t))
