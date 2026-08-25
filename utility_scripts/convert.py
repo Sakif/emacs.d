@@ -9,30 +9,30 @@ def title(title: str):
 
 
 def yard_to_meter(input: float) -> float:
-    meter = input*1143
-    return meter/1250
+    meter: float = input * 1143
+    return meter / 1250
 
 
 def inch_to_meter(input: float) -> float:
-    return yard_to_meter(input/36)
+    return yard_to_meter(input / 36)
 
 
 def pound_to_kg(input: float) -> float:
-    gram = input*453.59237
-    return gram/1000
+    gram: float = input * 453.59237
+    return gram / 1000
 
 
 def ounce_to_kg(input: float) -> float:
-    return pound_to_kg(input/16)
+    return pound_to_kg(input / 16)
 
 
 def radian_to_dms(input: float):
-    degree = input*180.0/math.pi
+    degree: float = input * 180.0 / math.pi
     deg = int(degree)
-    minute = degree - deg
+    minute: float = degree - deg
     minute *= 60.0
     minu = int(minute)
-    second = minute - minu
+    second: float = minute - minu
     second *= 60.0
     return deg, minu, second
 
@@ -40,7 +40,7 @@ def radian_to_dms(input: float):
 title("Vortex AMG")
 print("Magnification: 1-10x")
 imperial = 8.4
-metric = inch_to_meter(imperial)*1e3
+metric: float = inch_to_meter(imperial) * 1e3
 print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 18.8
 metric = ounce_to_kg(imperial)
@@ -49,7 +49,7 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 title("Eotech Vudu")
 print("Magnification: 1-10x")
 imperial = 10.63
-metric = inch_to_meter(imperial)*1e3
+metric = inch_to_meter(imperial) * 1e3
 print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 21.3
 metric = ounce_to_kg(imperial)
@@ -58,7 +58,7 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 title("Eotech Vudu")
 print("Magnification: 3-9x")
 imperial = 6.8
-metric = inch_to_meter(imperial)*1e3
+metric = inch_to_meter(imperial) * 1e3
 print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 16.0
 metric = ounce_to_kg(imperial)
@@ -67,7 +67,7 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 title("Eotech Vudu")
 print("Magnification: 4-12x")
 imperial = 7.1
-metric = inch_to_meter(imperial)*1e3
+metric = inch_to_meter(imperial) * 1e3
 print(f"Length: {imperial:5.2f} in, {metric:.4} mm")
 imperial = 16.9
 metric = ounce_to_kg(imperial)
@@ -75,7 +75,6 @@ print(f"Weight: {imperial:5.2f} oz, {metric:.4f} kg")
 
 title("Elcan Specter")
 print("Magnification: 1.5-6x")
-
 
 title("dems")
 rad = 300e-6

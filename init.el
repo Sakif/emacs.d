@@ -1,13 +1,19 @@
+;; -*- lexical-binding: t; -*-
 (native-comp-available-p)
+;; Increase the GC threshold
+(setq gc-cons-threshold 10000000) ;; 10MB
+;; Increase how much outout emacs can read from external processes
+(setq read-process-output-max (* 1024 1024 4))
+;; Enable JIT cimpilation
+(setq native-comp-jit-compilation t)
+
 (require 'package)
 (add-to-list 'package-archives ;; adding melpa to package archives
              '("melpa" . "https://stable.melpa.org/packages/") t)
-
-;; get use-package if not already installed ;;
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-
+(require 'use-package)
 ;; A quick primer on the `use-package' function (refer to "C-h f use-package" for the full details).
 ;;
 ;; (use-package my-package-name
@@ -17,59 +23,102 @@
 ;;   :custom      ; Set these variables
 ;;   :config      ; Run this code after my-package is loaded
 
-(require 'use-package)
-(use-package use-package
-  :config ; not necesserily for use-package but general config
-  (column-number-mode) ; shoes the column number
-  (display-time-mode) ; display time
-  (menu-bar-mode -1) ; no menubar
-  (tool-bar-mode -1) ; no toolbar
-  (show-paren-mode t) ; show parenthesis
-  (global-visual-line-mode) ; warping
-  (toggle-frame-fullscreen) ; open emacs fullscreen
-  (global-auto-revert-mode t) ; automatically reloads buffer
-  (fset 'yes-or-no-p 'y-or-n-p) ; yes/no choices are now just y/n
-  (set-default-coding-systems 'utf-8) ; use UTF-8 by default
-  (set-face-attribute ; setting font and size
-   'default t :font "JetBrains Mono" :height 130)
-  (electric-pair-mode t) ; Automatically pair parentheses
-  (load-theme 'modus-vivendi) ; theme
-  :hook
-  (before-save . whitespace-cleanup) ; clean up white space before save
+(use-package emacs
+  :ensure nil
+  :init
+  (toggle-frame-fullscreen) ;; open emacs fullscreen
+  (set-face-attribute ;; setting font and size
+   'default nil :family "JetBrains Mono" :height 130)
+  (tool-bar-mode -1) ;; disable the toolbar
+  (menu-bar-mode -1)  ;; disable the menu bar
+  (display-time-mode) ;; display time
+  (save-place-mode 1) ;; remembering file positions
+  (fido-vertical-mode) ;; immediate feedback for M-x
+  :config
+  (show-paren-mode t) ;; show parenthesis
+  (global-visual-line-mode) ;; warping
+  (global-auto-revert-mode t) ;; automatically reloads buffer
+  (electric-pair-mode t) ;; Automatically pair parentheses
+  (column-number-mode t) ;; Display the column number in the mode line.
+  (delete-selection-mode 1) ;; Enable replacing selected text with typed text.
+  (set-default-coding-systems 'utf-8) ;; use UTF-8 by default
+  (load-theme 'modus-vivendi) ;; theme
   :custom
-  (tab-width 2) ; tab width
-  (scroll-bar-mode nil) ; no scroll bar
-  (indent-tabs-mode nil) ; do not use tab
-  (make-backup-files nil) ; no backup files
-  (inhibit-startup-message t) ; no start up message
-  ;; (compile-command "./compile.sh") ; compile command
-  (warning-suppress-types '((comp)))
-  (use-package-always-ensure t)) ; if package is not installed install it
+  (tab-width 2) ;; tab width
+  (indent-tabs-mode nil) ;; do not use tab
+  (tab-always-indent 'complete) ;; use tab to complete
+  (truncate-lines t) ;; do not display continuation lines
+  (org-startup-folded 'fold) ;; fold all org headers to show outline
+  (inhibit-startup-message t) ;; no start up message
+  (use-package-always-ensure t) ;; if package is not installed install it
+  (scroll-bar-mode -1) ;; Disable the scroll bar
+  (auto-save-default nil) ;; Disable automatic saving of buffers.
+  (create-lockfiles nil) ;; Prevent the creation of lock files when editing.
+  (delete-by-moving-to-trash t) ;; Move deleted files to the trash instead of permanently deleting them.
+  (history-length 25) ;; Set the length of the command history.
+  (ispell-dictionary "en_CA") ;; Set the default dictionary for spell checking.
+  (make-backup-files nil) ;; Disable creation of backup files.
+  (pixel-scroll-precision-mode t) ;; Enable precise pixel scrolling.
+  (pixel-scroll-precision-use-momentum nil) ;; Disable momentum scrolling for pixel precision.
+  (ring-bell-function 'ignore) ;; Disable the audible bell.
+  (switch-to-buffer-obey-display-actions t) ;; Make buffer switching respect display actions.
+  (use-dialog-box nil) ;; Disable dialog boxes in favor of minibuffer prompts.
+  (use-short-answers t) ;; Use short answers in prompts for quicker responses (y instead of yes)
+  (warning-minimum-level :emergency) ;; Set the minimum level of warnings to display.
+  (project-mode-line t) ;; shows if a file is in a project
+  (compilation-scroll-output t) ;; scroll compilation output
+  (project-vc-extra-root-markers '(".project" "Cargo.toml")) ;; mark filders containing these as projects
+  (treesit-enabled-modes t) ;; use the treesit variant of major modes
+  (display-time-24hr-format t) ;; show time in 24 h
+  :hook
+  (icomplete-minibuffer-setup . my-icomplete-styles)
+  (before-save . whitespace-cleanup)) ;; clean up white space before save
+
+(use-package dired
+  :ensure nil
+  :custom
+  (dired-dwim-target t) ;; "Do What I Mean", seems to make smarter choices for target actions
+  (dired-recursive-copies 'always) ;; don't ask when making copies of directories
+  (dired-create-destination-dirs 'ask) ;; always ask if a rename/copy would require creating additional directories that don't yet exist.
+  (dired-clean-confirm-killing-deleted-buffers nil) ;; don't ask whether to kill buffers visiting deleted files
+  (dired-mouse-drag-files t) ;; Allows using the mouse to drag files
+  (dired-kill-when-opening-new-dired-buffer t) ;; Kill the current buffer when selecting a new directory
+  :hook
+  (dired-mode . dired-hide-details-mode))
 
 ;; This automates the process of updating installed packages
 (use-package auto-package-update
   :custom
   ;; Set the number of days between automatic updates.
-  ;; Here, packages will only be updated if at least 7 days have passed
-  ;; since the last successful update.
+  ;; Here, packages will only be updated if at least 7 days have passed since the last successful update.
   (auto-package-update-interval 7)
-  ;; Suppress display of the *auto-package-update results* buffer after updates.
-  ;; This keeps the user interface clean and avoids unnecessary interruptions.
+  ;; Suppress display of the *auto-package-update results* buffer after updates. This keeps the user interface clean and avoids unnecessary interruptions.
   (auto-package-update-hide-results t)
-  ;; Automatically delete old package versions after updates to reduce disk
-  ;; usage and keep the package directory clean. This prevents the accumulation
-  ;; of outdated files in Emacs's package directory, which consume
-  ;; unnecessary disk space over time.
+  ;; Automatically delete old package versions after updates to reduce disk usage and keep the package directory clean. This prevents the accumulation of outdated files in Emacs's package directory, which consume unnecessary disk space over time.
   (auto-package-update-delete-old-versions t)
-  ;; Uncomment the following line to enable a confirmation prompt
-  ;; before applying updates. This can be useful if you want manual control.
-  ;; (auto-package-update-prompt-before-update t)
   :config
-  ;; Run package updates automatically at startup, but only if the configured
-  ;; interval has elapsed.
+  ;; Run package updates automatically at startup, but only if the configured interval has elapsed.
   (auto-package-update-maybe))
 
-(use-package which-key ; tells which function is binded to which keyboard shortcut
+;; Marginalia are marks or annotations placed at the margin of the page of a book or in this case helpful colorful annotations placed at the margin of the minibuffer for your completion candidates.
+(use-package marginalia
+  :commands
+  (marginalia-mode marginalia-cycle)
+  :init
+  (marginalia-mode))
+
+;; This package provides an orderless completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order.
+(use-package orderless
+  :custom
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
+(defun my-icomplete-styles ()
+  (setq-local truncate-lines t)
+  (setq-local completion-styles '(orderless basic)))
+(add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-styles)
+
+;; tells which function is binded to which keyboard shortcut
+(use-package which-key
   :commands which-key-mode
   :hook (after-init . which-key-mode)
   :custom
@@ -78,67 +127,15 @@
   (which-key-add-column-padding 1)
   (which-key-max-description-length 40))
 
-;; Corfu enhances in-buffer completion by displaying a compact popup with
-;; current candidates, positioned either below or above the point. Candidates
-;; can be selected by navigating up or down.
-(use-package corfu-terminal
-  :commands
-  (corfu-mode global-corfu-mode)
-  :hook
-  ((prog-mode . corfu-mode)
-   (shell-mode . corfu-mode)
-   (eshell-mode . corfu-mode))
+;; Corfu enhances in-buffer completion by displaying a compact popup with current candidates, positioned either below or above the point. Candidates can be selected by navigating up or down.
+(use-package corfu
   :custom
-  ;; Hide commands in M-x which do not apply to the current mode.
-  (read-extended-command-predicate #'command-completion-default-include-p)
   ;; Disable Ispell completion function. As an alternative try `cape-dict'.
   (text-mode-ispell-word-completion nil)
-  (tab-always-indent 'complete)
   ;; Enable Corfu
-  :config
-  (global-corfu-mode))
-(unless (display-graphic-p)
-  (corfu-terminal-mode +1))
-
-;; Cape, or Completion At Point Extensions, extends the capabilities of
-;; in-buffer completion. It integrates with Corfu or the default completion UI,
-;; by providing additional backends through completion-at-point-functions.
-(use-package cape
-  :commands
-  (cape-dabbrev cape-file cape-elisp-block)
-  :bind
-  ("C-c p" . cape-prefix-map)
   :init
-  ;; Add to the global default value of `completion-at-point-functions' which is
-  ;; used by `completion-at-point'.
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block))
-
-;; Vertico provides a vertical completion interface, making it easier to
-;; navigate and select from completion candidates (e.g., when `M-x` is pressed).
-(use-package vertico
-  ;; (Note: It is recommended to also enable the savehist package.)
-  :config
-  (vertico-mode))
-
-;; Vertico leverages Orderless' flexible matching capabilities, allowing users
-;; to input multiple patterns separated by spaces, which Orderless then
-;; matches in any order against the candidates.
-(use-package orderless
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
-
-;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
-;; In addition to that, Marginalia also enhances Vertico by adding rich
-;; annotations to the completion candidates displayed in Vertico's interface.
-(use-package marginalia
-  :commands
-  (marginalia-mode marginalia-cycle)
-  :hook
-  (after-init . marginalia-mode))
+  (global-corfu-mode)
+  (corfu-popupinfo-mode t))
 
 (use-package iedit
   :bind ; for finding all in buffer and replacing them
@@ -148,9 +145,9 @@
   :hook ; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
 
-(use-package rg
-  :init ; rip grep
-  (rg-enable-menu))
+(use-package breadcrumb
+  :config
+  (breadcrumb-mode t))
 
 (use-package doom-modeline
   :custom ; better mode line
@@ -163,11 +160,14 @@
   :hook
   (after-init . doom-modeline-mode))
 
+(use-package rg
+  :config ; rip grep
+  (rg-enable-menu))
+
 (use-package el-fetch)
 (use-package magit)
 
 ;; language server protocal + language support ;;
-
 (defun format-before-save ()
   "Eglot will format the buffer before saving."
   (when buffer-file-name
@@ -176,22 +176,22 @@
 
 ;; Set up the Language Server Protocol (LSP) servers using Eglot.
 (use-package eglot
+  :ensure nil
   :commands
   (eglot-ensure
    eglot-rename
    eglot-format-buffer)
   :hook
-  (c-mode . eglot-ensure)
-  (c-mode . format-before-save)
-  (c++-mode . eglot-ensure)
-  (c++-mode . format-before-save)
-  (python-mode . eglot-ensure)
-  (python-mode . format-before-save)
+  (c-ts-mode . eglot-ensure)
+  (c-ts-mode . format-before-save)
+  (c++-ts-mode . eglot-ensure)
+  (c++-ts-mode . format-before-save)
+  (c-or-c++-ts-mode . eglot-ensure)
+  (c-or-c++-ts-mode . format-before-save)
+  (python-ts-mode . eglot-ensure)
+  (python-ts-mode . format-before-save)
   :config
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd")))
-
-(use-package rust-mode
-  :custom
-  (rust-format-on-save t)
-  :hook
-  (rust-mode . eglot-ensure))
+  (add-to-list 'eglot-server-programs
+               '((python-ts-mode) . ("zuban" "server")))
+  (add-to-list 'eglot-server-programs
+               '((c++-ts-mode c-ts-mode c-or-c++-ts-mode) "clangd")))

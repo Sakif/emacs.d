@@ -1,5 +1,13 @@
 #+TITLE: Config files with utility scripts
 #+AUTHOR: Sakif Fahmid Zaman
+* Per Directory Local Variables
+When opening files and projects Emacs looks for a /.dir-locals.el/ file, and if it exists it will load the variables from that file. This can be used to force major modes, indentations, etc...
+
+However it can also be used for project wide settings. For example, adding the following to the /.dir-locals.el/ in a rust's project root:
+
+#+BEGIN_SRC elisp
+((nil . ((compile-command . "cargo build"))))
+#+END_SRC
 
 * Rogue like
 [[https://kenney.nl/assets/micro-roguelike][Micro Roguelike tiles]]
