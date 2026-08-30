@@ -42,6 +42,7 @@
   (column-number-mode t) ;; Display the column number in the mode line.
   (delete-selection-mode 1) ;; Enable replacing selected text with typed text.
   (set-default-coding-systems 'utf-8) ;; use UTF-8 by default
+  (tty-tip-mode) ;; enables tooltips on the terminal
   (load-theme 'modus-vivendi) ;; theme
   :custom
   (tab-width 2) ;; tab width
@@ -54,20 +55,26 @@
   (scroll-bar-mode -1) ;; Disable the scroll bar
   (auto-save-default nil) ;; Disable automatic saving of buffers.
   (create-lockfiles nil) ;; Prevent the creation of lock files when editing.
-  (delete-by-moving-to-trash t) ;; Move deleted files to the trash instead of permanently deleting them.
+  ;; Move deleted files to the trash instead of permanently deleting them.
+  (delete-by-moving-to-trash t)
   (history-length 25) ;; Set the length of the command history.
   (ispell-dictionary "en_CA") ;; Set the default dictionary for spell checking.
   (make-backup-files nil) ;; Disable creation of backup files.
   (pixel-scroll-precision-mode t) ;; Enable precise pixel scrolling.
-  (pixel-scroll-precision-use-momentum nil) ;; Disable momentum scrolling for pixel precision.
+  ;; Disable momentum scrolling for pixel precision.
+  (pixel-scroll-precision-use-momentum nil)
   (ring-bell-function 'ignore) ;; Disable the audible bell.
-  (switch-to-buffer-obey-display-actions t) ;; Make buffer switching respect display actions.
+  ;; Make buffer switching respect display actions.
+  (switch-to-buffer-obey-display-actions t)
   (use-dialog-box nil) ;; Disable dialog boxes in favor of minibuffer prompts.
-  (use-short-answers t) ;; Use short answers in prompts for quicker responses (y instead of yes)
-  (warning-minimum-level :emergency) ;; Set the minimum level of warnings to display.
-  (project-mode-line t) ;; shows if a file is in a project
+  ;; Use short answers in prompts for quicker responses (y instead of yes)
+  (use-short-answers t)
+  ;; Set the minimum level of warnings to display.
+  (warning-minimum-level :emergency)
+  (project-mode-line t) ;; shows project name if a file is in a project
   (compilation-scroll-output t) ;; scroll compilation output
-  (project-vc-extra-root-markers '(".project" "Cargo.toml")) ;; mark filders containing these as projects
+  ;; mark filders containing these as projects
+  (project-vc-extra-root-markers '(".project" "Cargo.toml"))
   (treesit-enabled-modes t) ;; use the treesit variant of major modes
   (display-time-24hr-format t) ;; show time in 24 h
   :hook
@@ -77,37 +84,52 @@
 (use-package dired
   :ensure nil
   :custom
-  (dired-dwim-target t) ;; "Do What I Mean", seems to make smarter choices for target actions
-  (dired-recursive-copies 'always) ;; don't ask when making copies of directories
-  (dired-create-destination-dirs 'ask) ;; always ask if a rename/copy would require creating additional directories that don't yet exist.
-  (dired-clean-confirm-killing-deleted-buffers nil) ;; don't ask whether to kill buffers visiting deleted files
+  ;; "Do What I Mean", seems to make smarter choices for target actions
+  (dired-dwim-target t)
+  ;; don't ask when making copies of directories
+  (dired-recursive-copies 'always)
+  ;; always ask if a rename/copy would require creating additional
+  ;; directories that don't yet exist.
+  (dired-create-destination-dirs 'ask)
+  ;; don't ask whether to kill buffers visiting deleted files
+  (dired-clean-confirm-killing-deleted-buffers nil)
   (dired-mouse-drag-files t) ;; Allows using the mouse to drag files
-  (dired-kill-when-opening-new-dired-buffer t) ;; Kill the current buffer when selecting a new directory
-  :hook
-  (dired-mode . dired-hide-details-mode))
+  ;; Kill the current buffer when selecting a new directory
+  (dired-kill-when-opening-new-dired-buffer t))
 
 ;; This automates the process of updating installed packages
 (use-package auto-package-update
   :custom
-  ;; Set the number of days between automatic updates.
-  ;; Here, packages will only be updated if at least 7 days have passed since the last successful update.
+  ;; Set the number of days between automatic updates. Here, packages will
+  ;; only be updated if at least 7 days have passed since the last successful
+  ;; update.
   (auto-package-update-interval 7)
-  ;; Suppress display of the *auto-package-update results* buffer after updates. This keeps the user interface clean and avoids unnecessary interruptions.
+  ;; Suppress display of the *auto-package-update results* buffer after
+  ;; updates. This keeps the user interface clean and avoids unnecessary
+  ;; interruptions.
   (auto-package-update-hide-results t)
-  ;; Automatically delete old package versions after updates to reduce disk usage and keep the package directory clean. This prevents the accumulation of outdated files in Emacs's package directory, which consume unnecessary disk space over time.
+  ;; Automatically delete old package versions after updates to reduce disk
+  ;; usage and keep the package directory clean. This prevents the
+  ;; accumulation of outdated files in Emacs's package directory, which
+  ;; consume unnecessary disk space over time.
   (auto-package-update-delete-old-versions t)
   :config
-  ;; Run package updates automatically at startup, but only if the configured interval has elapsed.
+  ;; Run package updates automatically at startup, but only if the configured
+  ;; interval has elapsed.
   (auto-package-update-maybe))
 
-;; Marginalia are marks or annotations placed at the margin of the page of a book or in this case helpful colorful annotations placed at the margin of the minibuffer for your completion candidates.
+;; Marginalia are marks or annotations placed at the margin of the page of a
+;; book or in this case helpful colorful annotations placed at the margin of
+;; the minibuffer for your completion candidates.
 (use-package marginalia
   :commands
   (marginalia-mode marginalia-cycle)
   :init
   (marginalia-mode))
 
-;; This package provides an orderless completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order.
+;; This package provides an orderless completion style that divides the
+;; pattern into space-separated components, and matches candidates that match
+;; all of the components in any order.
 (use-package orderless
   :custom
   (completion-category-defaults nil)
@@ -127,7 +149,9 @@
   (which-key-add-column-padding 1)
   (which-key-max-description-length 40))
 
-;; Corfu enhances in-buffer completion by displaying a compact popup with current candidates, positioned either below or above the point. Candidates can be selected by navigating up or down.
+;; Corfu enhances in-buffer completion by displaying a compact popup with
+;; current candidates, positioned either below or above the point. Candidates
+;; can be selected by navigating up or down.
 (use-package corfu
   :custom
   ;; Disable Ispell completion function. As an alternative try `cape-dict'.
@@ -138,30 +162,19 @@
   (corfu-popupinfo-mode t))
 
 (use-package iedit
-  :bind ; for finding all in buffer and replacing them
+  :bind ;; for finding all in buffer and replacing them
   ("C-c f" . iedit-mode))
 
 (use-package rainbow-delimiters
-  :hook ; colourful paranthesis
+  :hook ;; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
 
 (use-package breadcrumb
   :config
   (breadcrumb-mode t))
 
-(use-package doom-modeline
-  :custom ; better mode line
-  (doom-modeline-buffer-file-name-style 'file-name)
-  (doom-modeline-minor-modes (featurep 'minions))
-  (doom-modeline-display-default-persp-name t)
-  (doom-modeline-project-detection 'project)
-  (doom-modeline-indent-info t)
-  (doom-modeline-icon nil)
-  :hook
-  (after-init . doom-modeline-mode))
-
 (use-package rg
-  :config ; rip grep
+  :config ;; rip grep
   (rg-enable-menu))
 
 (use-package el-fetch)
@@ -178,9 +191,7 @@
 (use-package eglot
   :ensure nil
   :commands
-  (eglot-ensure
-   eglot-rename
-   eglot-format-buffer)
+  (eglot-ensure eglot-rename eglot-format-buffer)
   :hook
   (c-ts-mode . eglot-ensure)
   (c-ts-mode . format-before-save)
@@ -190,8 +201,16 @@
   (c-or-c++-ts-mode . format-before-save)
   (python-ts-mode . eglot-ensure)
   (python-ts-mode . format-before-save)
+  :custom
+  ;; read documentation in markdown
+  (eglot-documentation-renderer 'markdown-ts-view-mode)
   :config
   (add-to-list 'eglot-server-programs
                '((python-ts-mode) . ("zuban" "server")))
   (add-to-list 'eglot-server-programs
                '((c++-ts-mode c-ts-mode c-or-c++-ts-mode) "clangd")))
+
+;; language specifics ;;
+(use-package markdown-ts-mode
+  :ensure nil
+  :defer t)
