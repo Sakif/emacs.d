@@ -77,6 +77,7 @@
   (project-vc-extra-root-markers '(".project" "Cargo.toml"))
   (treesit-enabled-modes t) ;; use the treesit variant of major modes
   (display-time-24hr-format t) ;; show time in 24 h
+  (comment-style 'aligned) ;; first and last match
   :hook
   (icomplete-minibuffer-setup . my-icomplete-styles)
   (before-save . whitespace-cleanup)) ;; clean up white space before save
@@ -142,7 +143,8 @@
 ;; tells which function is binded to which keyboard shortcut
 (use-package which-key
   :commands which-key-mode
-  :hook (after-init . which-key-mode)
+  :hook
+  (after-init . which-key-mode)
   :custom
   (which-key-idle-delay 1)
   (which-key-idle-secondary-delay 0.25)
@@ -192,15 +194,6 @@
   :ensure nil
   :commands
   (eglot-ensure eglot-rename eglot-format-buffer)
-  :hook
-  (c-ts-mode . eglot-ensure)
-  (c-ts-mode . format-before-save)
-  (c++-ts-mode . eglot-ensure)
-  (c++-ts-mode . format-before-save)
-  (c-or-c++-ts-mode . eglot-ensure)
-  (c-or-c++-ts-mode . format-before-save)
-  (python-ts-mode . eglot-ensure)
-  (python-ts-mode . format-before-save)
   :custom
   ;; read documentation in markdown
   (eglot-documentation-renderer 'markdown-ts-view-mode)
@@ -211,6 +204,37 @@
                '((c++-ts-mode c-ts-mode c-or-c++-ts-mode) "clangd")))
 
 ;; language specifics ;;
+(use-package c-ts-mode
+  :ensure nil
+  :hook
+  (c-ts-mode . eglot-ensure)
+  (c-ts-mode . format-before-save))
+
+(use-package c++-ts-mode
+  :ensure nil
+  :hook
+  (c++-ts-mode . eglot-ensure)
+  (c++-ts-mode . format-before-save))
+
+(use-package c-or-c++-ts-mode
+  :ensure nil
+  :hook
+  (c-or-c++-ts-mode . eglot-ensure)
+  (c-or-c++-ts-mode . format-before-save))
+
+(use-package python-ts-mode
+  :ensure nil
+  :hook
+  (python-ts-mode . eglot-ensure)
+  (python-ts-mode . format-before-save))
+
+(use-package rust-ts-mode
+  :ensure nil
+  :hook
+  (rust-ts-mode . eglot-ensure)
+  (rust-ts-mode . format-before-save))
+
 (use-package markdown-ts-mode
   :ensure nil
-  :defer t)
+  :config
+  (require 'markdown-ts-mode-x))
