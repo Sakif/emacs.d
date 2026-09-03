@@ -77,6 +77,7 @@
   (project-vc-extra-root-markers '(".project" "Cargo.toml"))
   (treesit-enabled-modes t) ;; use the treesit variant of major modes
   (display-time-24hr-format t) ;; show time in 24 h
+  (display-time-day-and-date t) ;; show day and date with time
   (comment-style 'aligned) ;; first and last match
   :hook
   (icomplete-minibuffer-setup . my-icomplete-styles)
@@ -163,17 +164,9 @@
   (global-corfu-mode)
   (corfu-popupinfo-mode t))
 
-(use-package iedit
-  :bind ;; for finding all in buffer and replacing them
-  ("C-c f" . iedit-mode))
-
 (use-package rainbow-delimiters
   :hook ;; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
-
-(use-package breadcrumb
-  :config
-  (breadcrumb-mode t))
 
 (use-package rg
   :config ;; rip grep
@@ -238,3 +231,7 @@
   :ensure nil
   :config
   (require 'markdown-ts-mode-x))
+
+(use-package gdscript-mode
+  :custom
+  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/godot_4_7_2/bin/godot"))

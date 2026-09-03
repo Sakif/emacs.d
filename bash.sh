@@ -2,7 +2,6 @@
 PS1="[\u@\h \W]\$ "
 
 alias cls="clear"
-alias make="make --max-load -j`nproc`"
 steam="/home/z/.local/share/Steam/steamapps/common/"
 
 youtube () {
@@ -67,8 +66,19 @@ shallow_fetch_all () {
         cd $i/..
         git stash
         git stash drop
-        git fetch --depth=1 --prune
+        git fetch --depth=1 --prune --rebase
         git pull --depth=1 --prune --rebase
         cd -
+    done
+}
+
+split_files() {
+    local dir_size=500
+    local dir_name="f"
+    n=$((`find . -maxdepth 1 -type f | wc -l` / $dir_size+1))
+    for i in `seq 1 $n`
+    do
+        mkdir -p "$dir_name$i"
+        find . -maxdepth 1 -type f | head -n $dir_size | xargs -i mv "{}" "$dir_name$i"
     done
 }

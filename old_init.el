@@ -1,20 +1,3 @@
-(use-package company
-  :config ; code compleation framework
-  (global-company-mode)
-  :custom
-  (company-idle-delay 0)
-  (company-minimum-prefix-length 1)
-  :bind
-  ("M-/" . company-complete-common-or-cycle))
-
-(use-package doom-themes
-  :config ; theme
-  (load-theme 'doom-acario-dark t)
-  (doom-themes-org-config)
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t))
-
 (use-package gdscript-mode
   :hook
   (gdscript-mode . eglot-ensure)
@@ -22,3 +5,11 @@
   (gdscript-use-tab-indents t)
   (gdscript-godot-executable "/home/z/Unity/godot/bin/godot.linuxbsd.editor.x86_64")
   (gdscript-gdformat-save-and-format t))
+
+(use-package iedit
+  :bind ;; for finding all in buffer and replacing them
+  ("C-c f" . iedit-mode))
+
+(use-package breadcrumb
+  :config
+  (breadcrumb-mode t))
