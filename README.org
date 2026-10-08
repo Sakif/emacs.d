@@ -1,22 +1,20 @@
 #+TITLE: Config files with utility scripts
 #+AUTHOR: Sakif Fahmid Zaman
-* Per Directory Local Variables
-When opening files and projects Emacs looks for a /.dir-locals.el/ file, and if it exists it will load the variables from that file. This can be used to force major modes, indentations, etc...
 
-However it can also be used for project wide settings. For example, adding the following to the /.dir-locals.el/ in a rust's project root:
+* Per Directory Local Variables
+When opening files and projects Emacs looks for a `.dir-locals.el` file, and if it exists it will load the variables from that file. This can be used to force major modes, indentations, etc...
+
+However it can also be used for project wide settings. For example, adding the following to the `.dir-locals.el` in a rust's project root:
 
 #+BEGIN_SRC elisp
 ((nil . ((compile-command . "cargo build"))))
 #+END_SRC
 
 * Rogue like
-[[https://kenney.nl/assets/micro-roguelike][Micro Roguelike tiles]]
-[[https://kenney.nl/assets/bit-pack][1-Bit Pack]]
-[[https://www.reddit.com/r/roguelikedev/comments/ifzwvp/urizen_1bit_tilesets_huge_update_with_400/][Urizen 1Bit Tilesets]]
-
 [[http://www.roguebasin.com/index.php?title=Complete_roguelike_tutorial_using_C%2B%2B_and_libtcod_-_part_1:_setting_up][cpp + tcod]]
 
 [[https://github.com/vurmux/urizen][Roguelike dungeon generation library written on Python3]]
+
 [[https://www.reddit.com/r/roguelikedev/comments/m9dd54/article_cave_generation_filling_the_rooms/][Cave Generation]]
 [[https://journal.stuffwithstuff.com/2014/12/21/rooms-and-mazes/][Rooms and Mazes: A Procedural Dungeon Generator]]
 
@@ -41,3 +39,40 @@ Push to the github remote repos ensuring you overwrite history
 git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
 git push -u --force origin master
 #+END_SRC
+
+* Mounting Android Phone
+
+#+BEGIN_SRC bash
+aft-mtp-mount ~/android_mount
+#+END_SRC
+
+* youtube bookmarks
+** Org Mode Productivity
+https://youtube.com/playlist?list=PLEoMzSkcN8oM8vAS2dcoeLHtD2DTqKTVY
+** ICBM Escalation
+https://youtube.com/playlist?list=PL3SQVF41qNM1FBqnsA__CX0FGUrsrl3gw
+** Dwarf Fortress
+https://youtube.com/playlist?list=PL3SQVF41qNM0MoeMljYYsbqescd32FWNk
+** Voices from the Void
+https://youtube.com/playlist?list=PLRY6EVZy1IhqJL4CYHMbdpxAEMe2Eh6xC
+** mre review
+https://youtu.be/KXlIEzGUawc
+https://youtube.com/playlist?list=PLBGcWhZwqNZ9N99gVUfzOLGCemCM95f_P
+https://youtu.be/x6OPtwWQ73g
+https://youtu.be/eWXc-feCk-k
+https://youtu.be/auIceu3hyrw
+https://youtu.be/XGEczcuwidc
+https://youtu.be/XD_mNqc1JR0
+https://youtu.be/7xVPfD5eBYg
+https://youtube.com/playlist?list=PLEHGNYaHvHnP1m2T2QmBSXw6sHEUFAHk_
+https://youtube.com/playlist?list=PLEHGNYaHvHnO3Ats6b5vgoh000BoZNSi6
+
+** Savotta
+https://youtube.com/playlist?list=PLppBSMSZX_T_ZaD2tsOXONLlQuldZ5RAT
+** Engineering Ethics
+*** Mastering the NPPE Exam
+https://youtube.com/playlist?list=PLLvwt0ipiLcSvAeCz1-h0ocUEDVGTcGDc
+*** NPPE
+https://youtube.com/playlist?list=PLbH5VptviI_dhbLxzunFiECvVRSf4f0sH
+*** FE ETHICS
+https://youtube.com/playlist?list=PLJEGmyKjpAS7Xu5vRJzCbntNwAPm6lYF5

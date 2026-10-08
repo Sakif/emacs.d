@@ -14,7 +14,8 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
-;; A quick primer on the `use-package' function (refer to "C-h f use-package" for the full details).
+;; A quick primer on the `use-package' function (refer to "C-h f use-package"
+;; for the full details).
 ;;
 ;; (use-package my-package-name
 ;;   :after foo   ; Load my-package after foo is loaded (seldom used)
@@ -24,7 +25,6 @@
 ;;   :config      ; Run this code after my-package is loaded
 
 (use-package emacs
-  :ensure nil
   :init
   (toggle-frame-fullscreen) ;; open emacs fullscreen
   (set-face-attribute ;; setting font and size
@@ -43,7 +43,7 @@
   (delete-selection-mode 1) ;; Enable replacing selected text with typed text.
   (set-default-coding-systems 'utf-8) ;; use UTF-8 by default
   (tty-tip-mode) ;; enables tooltips on the terminal
-  (load-theme 'modus-vivendi) ;; theme
+  ;; (load-theme 'manoj-dark) ;; theme
   :custom
   (tab-width 2) ;; tab width
   (indent-tabs-mode nil) ;; do not use tab
@@ -90,8 +90,8 @@
   (dired-dwim-target t)
   ;; don't ask when making copies of directories
   (dired-recursive-copies 'always)
-  ;; always ask if a rename/copy would require creating additional
-  ;; directories that don't yet exist.
+  ;; always ask if a rename/copy would require creating additional directories
+  ;; that don't yet exist.
   (dired-create-destination-dirs 'ask)
   ;; don't ask whether to kill buffers visiting deleted files
   (dired-clean-confirm-killing-deleted-buffers nil)
@@ -102,18 +102,17 @@
 ;; This automates the process of updating installed packages
 (use-package auto-package-update
   :custom
-  ;; Set the number of days between automatic updates. Here, packages will
-  ;; only be updated if at least 7 days have passed since the last successful
-  ;; update.
+  ;; Set the number of days between automatic updates. Here, packages will only
+  ;; be updated if at least 7 days have passed since the last successful update.
   (auto-package-update-interval 7)
   ;; Suppress display of the *auto-package-update results* buffer after
   ;; updates. This keeps the user interface clean and avoids unnecessary
   ;; interruptions.
   (auto-package-update-hide-results t)
   ;; Automatically delete old package versions after updates to reduce disk
-  ;; usage and keep the package directory clean. This prevents the
-  ;; accumulation of outdated files in Emacs's package directory, which
-  ;; consume unnecessary disk space over time.
+  ;; usage and keep the package directory clean. This prevents the accumulation
+  ;; of outdated files in Emacs's package directory, which consume unnecessary
+  ;; disk space over time.
   (auto-package-update-delete-old-versions t)
   :config
   ;; Run package updates automatically at startup, but only if the configured
@@ -129,9 +128,9 @@
   :init
   (marginalia-mode))
 
-;; This package provides an orderless completion style that divides the
-;; pattern into space-separated components, and matches candidates that match
-;; all of the components in any order.
+;; This package provides an orderless completion style that divides the pattern
+;; into space-separated components, and matches candidates that match all of
+;; the components in any order.
 (use-package orderless
   :custom
   (completion-category-defaults nil)
@@ -168,8 +167,19 @@
   :hook ;; colourful paranthesis
   (prog-mode . rainbow-delimiters-mode))
 
+;; mood line
+(use-package mood-line
+  ;; Enable mood-line
+  :config
+  (mood-line-mode)
+  ;; Use pretty Fira Code-compatible glyphs
+  :custom
+  (mood-line-format mood-line-format-default-extended)
+  (mood-line-glyph-alist mood-line-glyphs-unicode))
+
+;; rip grep ;;
 (use-package rg
-  :config ;; rip grep
+  :config
   (rg-enable-menu))
 
 (use-package el-fetch)
@@ -192,13 +202,12 @@
   (eglot-documentation-renderer 'markdown-ts-view-mode)
   :config
   (add-to-list 'eglot-server-programs
-               '((python-ts-mode) . ("zuban" "server")))
+   '((python-ts-mode) . ("zuban" "server")))
   (add-to-list 'eglot-server-programs
-               '((c++-ts-mode c-ts-mode c-or-c++-ts-mode) "clangd")))
+   '((c++-ts-mode c-ts-mode c-or-c++-ts-mode) "clangd")))
 
 ;; language specifics ;;
 (use-package c-ts-mode
-  :ensure nil
   :hook
   (c-ts-mode . eglot-ensure)
   (c-ts-mode . format-before-save))
@@ -222,16 +231,15 @@
   (python-ts-mode . format-before-save))
 
 (use-package rust-ts-mode
-  :ensure nil
   :hook
   (rust-ts-mode . eglot-ensure)
   (rust-ts-mode . format-before-save))
 
 (use-package markdown-ts-mode
-  :ensure nil
   :config
   (require 'markdown-ts-mode-x))
 
 (use-package gdscript-mode
   :custom
-  (gdscript-godot-executable "/home/z/.local/share/Steam/steamapps/common/godot_4_7_2/bin/godot"))
+  (gdscript-godot-executable
+   "/home/z/.local/share/Steam/steamapps/common/godot_4_7_2/bin/godot"))

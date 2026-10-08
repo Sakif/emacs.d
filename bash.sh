@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 PS1="[\u@\h \W]\$ "
-
 alias cls="clear"
 steam="/home/z/.local/share/Steam/steamapps/common/"
 
 youtube () {
-    mpv
+    mpv -fs https://youtu.be/GCMC5Zb81PE # https://youtu.be/ehYKgeSxWgs https://youtu.be/Jpntghn7VFI
 }
 
 morning_adhkar () {
@@ -27,14 +26,10 @@ cb () {
 folder_cbt () {
     for d in *
     do
-        if [[ -d "$d" ]]
-        then
-            cd "$d"
-            tar cf "${PWD}.cbt" *
-            cd -
-        else
-            continue
-        fi
+        [ -d "$d" ] || continue
+        cd "$d"
+        tar cf "${PWD}.cbt" *
+        cd -
     done
 }
 
@@ -54,8 +49,9 @@ jxl_cb_huge () {
     tar cf "${PWD}.cbt" *
     for i in *.jpg *.png
     do
-        magick $i -resize 3840x3840\> "${i%.*}.jxl"
-        rm $i
+        [ -f "$i" ] || continue
+        magick "$i" "${i%.*}.jxl" # -resize 4000x4000\>
+        rm "$i"
     done
     zip -9rq "${PWD}.cbz" *
 }
@@ -66,19 +62,22 @@ shallow_fetch_all () {
         cd $i/..
         git stash
         git stash drop
-        git fetch --depth=1 --prune --rebase
+        git fetch --depth=1 --prune
         git pull --depth=1 --prune --rebase
         cd -
     done
 }
 
-split_files() {
-    local dir_size=500
-    local dir_name="f"
-    n=$((`find . -maxdepth 1 -type f | wc -l` / $dir_size+1))
-    for i in `seq 1 $n`
+split_files () {
+    local folder_size=200
+    local i=0
+    for file in *
     do
-        mkdir -p "$dir_name$i"
-        find . -maxdepth 1 -type f | head -n $dir_size | xargs -i mv "{}" "$dir_name$i"
+        [ -f "$file" ] || continue
+        local folder=$(( i / folder_size ))
+        local subfolder=$( printf "f%03d" $folder )
+        mkdir -p "$subfolder"
+        mv "$file" "$subfolder/"
+        ((i++))
     done
 }
