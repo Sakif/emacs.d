@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+
 PS1="[\u@\h \W]\$ "
 alias cls="clear"
 steam="/home/z/.local/share/Steam/steamapps/common/"
 
 youtube () {
-    mpv -fs https://youtu.be/GCMC5Zb81PE # https://youtu.be/ehYKgeSxWgs https://youtu.be/Jpntghn7VFI
+    mpv https://youtu.be/d9uqOFiKcjQ https://youtu.be/rW8Lyyxz0SM https://youtu.be/TgAokVflzuI
 }
 
 morning_adhkar () {
@@ -26,8 +27,8 @@ cb () {
 folder_cbt () {
     for d in *
     do
-        [ -d "$d" ] || continue
-        cd "$d"
+        [ -d "${d}" ] || continue
+        cd "${d}"
         tar cf "${PWD}.cbt" *
         cd -
     done
@@ -40,8 +41,8 @@ tzst () {
 
 jxl_cb () {
     tar cf "${PWD}.cbt" *
-    fd -e jpg -e jpeg -e png -e bmp -x magick {} {.}.jxl
-    fd -e jpg -e jpeg -e png -e bmp -x rm
+    fd -e webp -e jpg -e jpeg -e png -e bmp -x magick {} {.}.jxl
+    fd -e webp -e jpg -e jpeg -e png -e bmp -x rm
     zip -9rq "${PWD}.cbz" *
 }
 
@@ -49,9 +50,9 @@ jxl_cb_huge () {
     tar cf "${PWD}.cbt" *
     for i in *.jpg *.png
     do
-        [ -f "$i" ] || continue
-        magick "$i" "${i%.*}.jxl" # -resize 4000x4000\>
-        rm "$i"
+        [ -f "${i}" ] || continue
+        magick "${i}" "${i%.*}.jxl" # -resize 4000x4000\>
+        rm "${i}"
     done
     zip -9rq "${PWD}.cbz" *
 }
@@ -73,11 +74,11 @@ split_files () {
     local i=0
     for file in *
     do
-        [ -f "$file" ] || continue
+        [ -f "${file}" ] || continue
         local folder=$(( i / folder_size ))
         local subfolder=$( printf "f%03d" $folder )
-        mkdir -p "$subfolder"
-        mv "$file" "$subfolder/"
+        mkdir -p "${subfolder}"
+        mv "${file}" "${subfolder}/"
         ((i++))
     done
 }

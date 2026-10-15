@@ -51,22 +51,17 @@ aft-mtp-mount ~/android_mount
 https://youtube.com/playlist?list=PLEoMzSkcN8oM8vAS2dcoeLHtD2DTqKTVY
 ** ICBM Escalation
 https://youtube.com/playlist?list=PL3SQVF41qNM1FBqnsA__CX0FGUrsrl3gw
+** Ace Combat 8
+https://youtube.com/playlist?list=PLZ7qN6t4uvhM
 ** Dwarf Fortress
 https://youtube.com/playlist?list=PL3SQVF41qNM0MoeMljYYsbqescd32FWNk
 ** Voices from the Void
 https://youtube.com/playlist?list=PLRY6EVZy1IhqJL4CYHMbdpxAEMe2Eh6xC
 ** mre review
-https://youtu.be/KXlIEzGUawc
 https://youtube.com/playlist?list=PLBGcWhZwqNZ9N99gVUfzOLGCemCM95f_P
-https://youtu.be/x6OPtwWQ73g
-https://youtu.be/eWXc-feCk-k
-https://youtu.be/auIceu3hyrw
-https://youtu.be/XGEczcuwidc
-https://youtu.be/XD_mNqc1JR0
-https://youtu.be/7xVPfD5eBYg
+*** JermsMRE
 https://youtube.com/playlist?list=PLEHGNYaHvHnP1m2T2QmBSXw6sHEUFAHk_
 https://youtube.com/playlist?list=PLEHGNYaHvHnO3Ats6b5vgoh000BoZNSi6
-
 ** Savotta
 https://youtube.com/playlist?list=PLppBSMSZX_T_ZaD2tsOXONLlQuldZ5RAT
 ** Engineering Ethics
